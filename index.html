@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Synthetic Polymath | Creative vs Technical</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;700;800;900&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-error": "#490013",
+                        "surface-bright": "#2c2c30",
+                        "tertiary-fixed-dim": "#00e5ee",
+                        "tertiary": "#a1faff",
+                        "inverse-on-surface": "#555458",
+                        "tertiary-dim": "#00e5ee",
+                        "on-secondary-fixed": "#6e0028",
+                        "error-dim": "#d73357",
+                        "surface-container-low": "#131316",
+                        "surface-container": "#19191d",
+                        "primary-fixed": "#819bff",
+                        "on-tertiary": "#006165",
+                        "primary-dim": "#3467ff",
+                        "primary-fixed-dim": "#6c8cff",
+                        "surface-dim": "#0e0e11",
+                        "on-secondary-container": "#fff6f5",
+                        "tertiary-container": "#00f4fe",
+                        "error": "#ff6e84",
+                        "secondary-dim": "#e2165f",
+                        "on-primary-fixed": "#000000",
+                        "on-tertiary-container": "#00575b",
+                        "on-surface-variant": "#acaaae",
+                        "background": "#0e0e11",
+                        "primary-container": "#819bff",
+                        "surface": "#0e0e11",
+                        "surface-container-high": "#1f1f23",
+                        "on-secondary-fixed-variant": "#a30040",
+                        "on-primary": "#00257c",
+                        "inverse-primary": "#004eeb",
+                        "outline": "#767579",
+                        "secondary": "#fe018d",
+                        "on-tertiary-fixed": "#004346",
+                        "on-primary-container": "#001b61",
+                        "surface-container-highest": "#25252a",
+                        "tertiary-fixed": "#00f4fe",
+                        "on-error-container": "#ffb2b9",
+                        "surface-variant": "#25252a",
+                        "primary": "#94aaff",
+                        "on-secondary": "#480018",
+                        "secondary-container": "#bc004b",
+                        "on-tertiary-fixed-variant": "#006266",
+                        "on-primary-fixed-variant": "#002376",
+                        "secondary-fixed": "#ffc2ca",
+                        "on-background": "#f0edf1",
+                        "on-surface": "#f0edf1",
+                        "surface-tint": "#94aaff",
+                        "outline-variant": "#48474b",
+                        "error-container": "#a70138",
+                        "inverse-surface": "#fcf8fd",
+                        "secondary-fixed-dim": "#ffaeba"
+                    },
+                    fontFamily: {
+                        "headline": ["Epilogue"],
+                        "body": ["Space Grotesk"],
+                        "label": ["Space Grotesk"],
+                        "ade": ["Ade Display", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                },
+            },
+        }
+    </script>
+    <style>
+        @font-face {
+            font-family: 'Ade Display';
+            src: url('fonts/Ade%20Display%20Font/Ade-Display.otf') format('opentype');
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .split-container {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* flex-basis: 0% overrides internal text width to allow true mathematical full screen expansion */
+        .pane {
+            flex: 1 1 0%;
+            transition: flex-grow 0.81s cubic-bezier(0.85, 0, 0.15, 1);
+            position: relative;
+            overflow: hidden;
+            min-width: 0;
+        }
+
+        /* Golden Ratio Expansion - hover or tab-focus triggers structural sweep */
+        .creative-side:hover,
+        .creative-side:focus-within {
+            flex-grow: 1.618;
+        }
+
+        .technical-side:hover,
+        .technical-side:focus-within {
+            flex-grow: 1.618;
+        }
+
+        .split-container:has(.technical-side:hover) .creative-side,
+        .split-container:has(.technical-side:focus-within) .creative-side {
+            flex-grow: 1;
+            opacity: 0.618;
+        }
+
+        .split-container:has(.creative-side:hover) .technical-side,
+        .split-container:has(.creative-side:focus-within) .technical-side {
+            flex-grow: 1;
+            opacity: 0.618;
+        }
+
+        /* Dim the non-focused/hovered pane (contents included) by 38.2% (1 - 0.618) */
+        .pane {
+            transition: flex-grow 0.81s cubic-bezier(0.85, 0, 0.15, 1), opacity 0.618s ease;
+        }
+
+        /* Accessbility: Vestibular motion reduction safety */
+        @media (prefers-reduced-motion: reduce) {
+
+            h2,
+            p,
+            a,
+            .group\\/btn,
+            .shiny-text,
+            .shiny-text-pink,
+            .shiny-text-blue {
+                transition: none !important;
+                animation: none !important;
+                transform: none !important;
+            }
+
+            /* Automatically bypass the hover-opacity physics so text remains visible */
+            .group-hover\\:opacity-100,
+            .group-focus-within\\:opacity-100 {
+                opacity: 1 !important;
+            }
+        }
+
+        /* Auto-Rotate into Landscape forced layout on Portrait devices */
+        @media screen and (orientation: portrait) and (max-width: 1024px) {
+
+            html,
+            body {
+                width: 100vw;
+                height: 100vh;
+                overflow: hidden !important;
+            }
+
+            #app-orientation-wrapper {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100vh;
+                height: 100vw;
+                transform: rotate(-90deg) translateX(-100vh);
+                transform-origin: top left;
+                overflow-x: hidden;
+                overflow-y: auto;
+                background-color: #0e0e11;
+            }
+
+            .split-container {
+                height: 100vw !important;
+                width: 100vh !important;
+            }
+        }
+
+        /* Sequence Page Transition Animations */
+        body.transitioning .pane {
+            pointer-events: none !important;
+        }
+
+        body.transitioning .pane.expanded {
+            flex-grow: 1000 !important;
+            background-color: #000000 !important;
+            border: none !important;
+            transition: flex-grow 1.2s cubic-bezier(0.85, 0, 0.15, 1), background-color 1.2s ease !important;
+        }
+
+        body.transitioning .pane.collapsed {
+            flex-grow: 0.00001 !important;
+            opacity: 0 !important;
+            transition: flex-grow 1.2s cubic-bezier(0.85, 0, 0.15, 1), opacity 0.6s ease !important;
+        }
+
+        body.transitioning .pane.expanded .z-0 {
+            opacity: 0 !important;
+            transition: opacity 1s ease !important;
+        }
+
+        body.transitioning .pane.expanded .z-10 .flex-col>*:not(h2):not(p) {
+            opacity: 0 !important;
+            transition: opacity 0.4s ease !important;
+        }
+
+        body.transitioning .pane.expanded h2 {
+            transform: scale(1.1) !important;
+            transition: transform 1.5s cubic-bezier(0.2, 0, 0, 1) !important;
+        }
+
+        .grid-overlay {
+            /* Very subtle technical blue, matching the original faint opacity */
+            background-image: linear-gradient(to right, rgba(148, 170, 255, 0.08) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(148, 170, 255, 0.08) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .dot-overlay {
+            /* Very subtle primary pink to match the faint opacity */
+            background-image: radial-gradient(circle, rgba(254, 1, 141, 0.15) 2px, transparent 2.5px);
+            background-size: 26.18px 26.18px;
+        }
+
+        .glass-blur {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        /* ── Shiny Text Effect (ported from ShinyText component) ── */
+        @keyframes shine-sweep {
+            0% {
+                background-position: 150% center;
+            }
+
+            50% {
+                background-position: -50% center;
+            }
+
+            100% {
+                background-position: 150% center;
+            }
+        }
+
+        .shiny-text {
+            background: linear-gradient(120deg, #acaaae 0%, #acaaae 35%, #ffffff 50%, #acaaae 65%, #acaaae 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine-sweep 4s ease-in-out infinite;
+        }
+
+        .shiny-text-pink {
+            background: linear-gradient(120deg, #fe018d 0%, #fe018d 35%, #ff80c6 50%, #fe018d 65%, #fe018d 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine-sweep 4s ease-in-out infinite;
+        }
+
+        .shiny-text-blue {
+            background: linear-gradient(120deg, #94aaff 0%, #94aaff 35%, #d4deff 50%, #94aaff 65%, #94aaff 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine-sweep 4s ease-in-out infinite;
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-surface font-body overflow-x-hidden">
+    <div id="app-orientation-wrapper">
+        <main class="split-container pt-0 relative">
+            <!-- Creative Side -->
+            <section class="pane creative-side bg-surface-dim relative group" tabindex="0"
+                aria-label="Artist Portfolio Section">
+                <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+                    <!-- Placing the gradient behind the dots so it doesn't cover them -->
+                    <div
+                        class="absolute -top-1/4 -left-1/4 w-[150%] h-[150%] bg-gradient-to-br from-secondary-container/40 via-background to-background rounded-full blur-[120px]">
+                    </div>
+                    <!-- Now the dots will render visibly on top of the blurred background -->
+                    <div
+                        class="absolute inset-0 z-0 dot-overlay opacity-30 group-hover:opacity-50 group-focus-within:opacity-50 transition-opacity duration-[1000ms]">
+                    </div>
+                    <!-- Silk Animation Background -->
+                    <div id="silk-container"
+                        class="absolute inset-0 z-0 opacity-30 mix-blend-screen group-hover:opacity-80 group-focus-within:opacity-80 transition-all duration-1000">
+                    </div>
+                </div>
+                <div
+                    class="relative z-10 h-full flex flex-col justify-center items-center text-center px-12 md:px-24 whitespace-nowrap group-hover:whitespace-normal group-focus-within:whitespace-normal overflow-hidden pt-12 md:pt-24">
+                    <div class="max-w-[42.36rem] flex flex-col items-center">
+                        <h2
+                            class="font-ade text-[4.236rem] md:text-[6.854rem] text-on-surface leading-[0.85] tracking-tighter group-hover:scale-[1.062] group-focus-within:scale-[1.062] transition-transform duration-[618ms]">
+                            THE <br /><span class="text-secondary">ARTIST.</span>
+                        </h2>
+                        <p
+                            class="mt-[2.618rem] font-body text-[1.125rem] leading-[1.618] max-w-[38.2rem] opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-[618ms] delay-[382ms]">
+                            <span class="shiny-text">Where intuition bypasses logic. We craft sensory experiences that
+                                resonate in the quiet spaces between heartbeats.</span>
+                        </p>
+                        <div
+                            class="mt-[4.236rem] opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-[618ms] delay-[618ms]">
+                            <a href="creative.html"
+                                class="flex items-center gap-4 group/btn inline-flex focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-full pb-1 pr-4">
+                                <span
+                                    class="w-12 h-12 rounded-full border border-outline-variant flex items-center justify-center group-hover/btn:bg-secondary group-hover/btn:border-secondary transition-colors">
+                                    <span
+                                        class="material-symbols-outlined text-on-surface group-hover/btn:text-on-secondary"
+                                        aria-hidden="true">arrow_forward</span>
+                                </span>
+                                <span class="font-label uppercase tracking-widest text-xs shiny-text-pink">Click to
+                                    explore</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Technical Side -->
+            <section class="pane technical-side bg-surface-container-low border-l border-white/5 relative group"
+                tabindex="0" aria-label="Technical & Engineering Section">
+                <!-- Modular Grid & Silk Animation Background -->
+                <div
+                    class="absolute inset-0 z-0 grid-overlay opacity-30 group-hover:opacity-50 group-focus-within:opacity-50 transition-opacity duration-[1000ms] pointer-events-none">
+                </div>
+                <div id="silk-container-engineer"
+                    class="absolute inset-0 z-0 opacity-20 group-hover:opacity-50 group-focus-within:opacity-50 transition-all duration-1000 pointer-events-none">
+                </div>
+
+                <div
+                    class="relative z-10 h-full flex flex-col justify-center items-center text-center px-12 md:px-24 whitespace-nowrap group-hover:whitespace-normal group-focus-within:whitespace-normal overflow-hidden pt-12 md:pt-24">
+                    <div class="max-w-[42.36rem] flex flex-col items-center">
+                        <h2
+                            class="font-ade text-[4.236rem] md:text-[6.854rem] text-on-surface leading-[0.85] tracking-tighter group-hover:scale-[1.062] group-focus-within:scale-[1.062] transition-transform duration-[618ms]">
+                            THE <br /><span class="text-primary">CODER.</span>
+                        </h2>
+                        <p
+                            class="mt-[2.618rem] font-body text-[1.125rem] leading-[1.618] max-w-[38.2rem] opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-[618ms] delay-[382ms]">
+                            <span class="shiny-text">Rigorous architecture meeting mathematical perfection. We build
+                                systems that endure the friction of reality.</span>
+                        </p>
+
+                        <div
+                            class="mt-[4.236rem] opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-[618ms] delay-[618ms]">
+                            <a href="technical.html"
+                                class="flex items-center gap-4 group/btn inline-flex focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm pb-1 pr-4">
+                                <span
+                                    class="w-12 h-12 rounded-sm border border-outline-variant flex items-center justify-center group-hover/btn:bg-primary group-hover/btn:border-primary transition-colors">
+                                    <span
+                                        class="material-symbols-outlined text-on-surface group-hover/btn:text-on-primary"
+                                        aria-hidden="true">settings</span>
+                                </span>
+                                <span class="font-label uppercase tracking-widest text-xs shiny-text-blue">Access
+                                    Technical</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="relative w-full z-50 bg-[#0e0e11] border-t border-white/5 tonal-shift bg-surface-container-low">
+            <div class="flex flex-col md:flex-row justify-between items-center px-12 py-10 w-full">
+                <div
+                    class="font-['Space_Grotesk'] uppercase tracking-[0.1em] text-[10px] text-slate-500 opacity-80 hover:opacity-100">
+                    © 2024 THE SYNTHETIC POLYMATH. ALL RIGHTS RESERVED.
+                </div>
+                <div class="flex gap-8 mt-4 md:mt-0">
+                    <a class="font-['Space_Grotesk'] uppercase tracking-[0.1em] text-[10px] text-slate-500 hover:text-[#0055FF] transition-colors"
+                        href="#">Documentation</a>
+                    <a class="font-['Space_Grotesk'] uppercase tracking-[0.1em] text-[10px] text-slate-500 hover:text-[#0055FF] transition-colors"
+                        href="#">System Status</a>
+                    <a class="font-['Space_Grotesk'] uppercase tracking-[0.1em] text-[10px] text-slate-500 hover:text-[#0055FF] transition-colors"
+                        href="#">Source</a>
+                    <a class="font-['Space_Grotesk'] uppercase tracking-[0.1em] text-[10px] text-slate-500 hover:text-[#0055FF] transition-colors"
+                        href="#">Privacy</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
+    <script>
+        const vertexShader = `
+            varying vec2 vUv;
+            varying vec3 vPosition;
+            void main() {
+                vPosition = position;
+                vUv = uv;
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+            }
+        `;
+
+        const fragmentShader = `
+            varying vec2 vUv;
+            varying vec3 vPosition;
+            uniform float uTime;
+            uniform vec3  uColor;
+            uniform float uSpeed;
+            uniform float uScale;
+            uniform float uRotation;
+            uniform float uNoiseIntensity;
+            const float e = 2.71828182845904523536;
+            float noise(vec2 texCoord) {
+                float G = e;
+                vec2  r = (G * sin(G * texCoord));
+                return fract(r.x * r.y * (1.0 + texCoord.x));
+            }
+            vec2 rotateUvs(vec2 uv, float angle) {
+                float c = cos(angle);
+                float s = sin(angle);
+                mat2  rot = mat2(c, -s, s, c);
+                return rot * uv;
+            }
+            void main() {
+                float rnd = noise(gl_FragCoord.xy);
+                vec2 uv = rotateUvs(vUv * uScale, uRotation);
+                vec2 tex = uv * uScale;
+                float tOffset = uSpeed * uTime;
+                tex.y += 0.03 * sin(8.0 * tex.x - tOffset);
+                float pattern = 0.6 + 0.4 * sin(5.0 * (tex.x + tex.y + cos(3.0 * tex.x + 5.0 * tex.y) + 0.02 * tOffset) + sin(20.0 * (tex.x + tex.y - 0.1 * tOffset)));
+                vec4 col = vec4(uColor, 1.0) * vec4(pattern) - rnd / 15.0 * uNoiseIntensity;
+                gl_FragColor = vec4(col.rgb, 1.0);
+            }
+        `;
+
+        function initSilk(containerId, colorHex, speed = 0.5) {
+            // Accessibility check: Prevent WebGL memory allocation/rendering completely for vibration safety profiles
+            if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                return;
+            }
+
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            // Canvas fills the container via CSS — GL resolution synced separately
+            const canvas = renderer.domElement;
+            canvas.style.position = 'absolute';
+            canvas.style.top = '0';
+            canvas.style.left = '0';
+            canvas.style.width = '100%';
+            canvas.style.height = '100%';
+            container.appendChild(canvas);
+
+            const uniforms = {
+                uTime: { value: 0 },
+                uColor: { value: new THREE.Color(colorHex) },
+                uSpeed: { value: speed },
+                uScale: { value: 1.0 },
+                uNoiseIntensity: { value: 1.5 },
+                uRotation: { value: 0.0 }
+            };
+
+            const geometry = new THREE.PlaneGeometry(2, 2);
+            const material = new THREE.ShaderMaterial({ uniforms, vertexShader, fragmentShader, transparent: true });
+            scene.add(new THREE.Mesh(geometry, material));
+
+            // Debounced resize — only syncs GL resolution after the flex transition settles
+            let resizeTimer = null;
+            function syncSize() {
+                renderer.setSize(container.clientWidth, container.clientHeight, false);
+            }
+            function debouncedResize() {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(syncSize, 120);
+            }
+
+            const ro = new ResizeObserver(debouncedResize);
+            ro.observe(container);
+            syncSize(); // initial sync
+
+            function animate(time) {
+                uniforms.uTime.value = time * 0.001;
+                renderer.render(scene, camera);
+                requestAnimationFrame(animate);
+            }
+            requestAnimationFrame(animate);
+        }
+
+        // Initialize when pane is ready
+        window.addEventListener('load', () => {
+            // Artist: Pink / Secondary color
+            initSilk('silk-container', "#fe018d", 0.5);
+            // Engineer: Technical Blue
+            initSilk('silk-container-engineer', "#3467ff", 0.3);
+
+            // Sequence Transition Hook
+            document.querySelectorAll('a[href="creative.html"], a[href="technical.html"]').forEach(btn => {
+                btn.addEventListener('click', function (e) {
+                    e.preventDefault(); // Prevent instant jump
+                    const targetUrl = this.getAttribute('href');
+                    const clickedPane = this.closest('.pane');
+                    const panes = document.querySelectorAll('.pane');
+
+                    // Activate transitioning physics state
+                    document.body.classList.add('transitioning');
+
+                    panes.forEach(pane => {
+                        if (pane === clickedPane) {
+                            pane.classList.add('expanded');
+                        } else {
+                            pane.classList.add('collapsed');
+                        }
+                    });
+
+                    // Wait 1.3s for the cinematic sweep to finish before routing
+                    setTimeout(() => {
+                        window.location.href = targetUrl;
+                    }, 1300);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

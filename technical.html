@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>The Engineer | Technical</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <script src="tailwind-config.js"></script>
+    <link href="global.css" rel="stylesheet"/>
+    <style>
+        /* Entry Animation: seamlessly continues the index.html sweep */
+        @keyframes page-arrive {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes push-up {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-15vh); }
+        }
+        .hero-anchor {
+            /* Keep it centered initially, then push it up gracefully after 0.5s */
+            animation: push-up 1.5s cubic-bezier(0.85, 0, 0.15, 1) 0.5s forwards;
+        }
+        .content-reveal {
+            opacity: 0;
+            animation: page-arrive 1.2s ease 1s forwards;
+        }
+    </style>
+</head>
+<body class="bg-[#000000] text-on-surface font-body overflow-x-hidden m-0 p-0">
+    <div class="hero-anchor h-[100vh] w-full flex flex-col justify-center items-center text-center px-12 md:px-24 pt-12 md:pt-24">
+        <div class="max-w-[42.36rem] flex flex-col items-center">
+            <span class="font-label tracking-[0.3em] uppercase text-xs mb-[1.618rem] block shiny-text-blue invisible">The Engineer</span>
+            <h2 class="font-headline text-[4.236rem] md:text-[6.854rem] font-black text-on-surface leading-[0.85] tracking-tighter" style="transform: scale(1.1);">
+                CODE &amp; <br/><span class="text-primary">CORE.</span>
+            </h2>
+            <p class="mt-[2.618rem] font-body text-[1.125rem] leading-[1.618] max-w-[38.2rem]">
+                <span class="shiny-text">Rigorous architecture meeting mathematical perfection. We build systems that endure the friction of reality.</span>
+            </p>
+            <div class="mt-[4.236rem] invisible">
+                <a class="flex items-center gap-4 group/btn inline-flex">
+                    <span class="w-12 h-12 rounded-sm border border-outline-variant flex items-center justify-center">
+                        <span class="material-symbols-outlined text-on-surface">settings</span>
+                    </span>
+                    <span class="font-label uppercase tracking-widest text-xs shiny-text-blue">Access Technical</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="content-reveal min-h-screen px-12 md:px-24 max-w-7xl mx-auto pb-32">
+        <h3 class="font-headline text-3xl font-bold shiny-text-blue mb-8">Technical Infrastructure</h3>
+        <p class="text-on-surface-variant max-w-2xl leading-relaxed">
+            Welcome to the engineering module. Here we document our distributed systems, rendering pipelines, and rigorous performance optimizations.
+        </p>
+        <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="h-64 border border-outline-variant bg-[#0e0e11] rounded-lg"></div>
+            <div class="h-64 border border-outline-variant bg-[#0e0e11] rounded-lg"></div>
+        </div>
+    </div>
+</body>
+</html>

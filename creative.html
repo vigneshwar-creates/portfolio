@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>The Artist | Creative</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <script src="tailwind-config.js"></script>
+    <link href="global.css" rel="stylesheet" />
+    <style>
+        /* Entry Animation: seamlessly continues the index.html sweep */
+        @keyframes page-arrive {
+            0% {
+                opacity: 0;
+                transform: translateY(10vh);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes push-up {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-11.8vh);
+            }
+
+            /* Vertically locks text to the exact 38.2% Golden Horizon */
+        }
+
+        .hero-anchor {
+            /* Keep it centered initially, then push it up gracefully after 0.5s */
+            animation: push-up 1.5s cubic-bezier(0.85, 0, 0.15, 1) 0.5s forwards;
+        }
+
+        .content-reveal {
+            opacity: 0;
+            margin-top: 0;
+            /* Fuses the pink wall frictionlessly against the 100vh cinematic video bound, deleting the black void gap permanently */
+            animation: page-arrive 1.6s cubic-bezier(0.1, 0.9, 0.2, 1) 1.2s forwards;
+        }
+
+        @keyframes fade-in-video {
+            0% {
+                opacity: 0;
+                filter: blur(10px);
+                transform: scale(1.05);
+            }
+
+            100% {
+                opacity: 0.35;
+                filter: blur(0px);
+                transform: scale(1);
+            }
+
+            /* Preserves strict typography readability */
+        }
+
+        .video-reveal {
+            opacity: 0;
+            /* Delayed fade-in starts precisely as the title sweeps upward away from center */
+            animation: fade-in-video 2.5s cubic-bezier(0.1, 0.9, 0.2, 1) 0.8s forwards;
+        }
+
+        /* Custom 3D Pink Cursors for the Artist Sequence */
+        body,
+        html {
+            cursor: url("cursors/Pink Glossy Arrow & Hand 3D/Pink Glossy Arrow & Hand 3D--cursor--SweezyCursors.png"), auto !important;
+        }
+
+        a,
+        button,
+        [role="button"],
+        .group\\/btn {
+            cursor: url("cursors/Pink Glossy Arrow & Hand 3D/Pink Glossy Arrow & Hand 3D--pointer--SweezyCursors.png"), pointer !important;
+        }
+    </style>
+</head>
+
+<body class="bg-[#000000] text-on-surface font-body overflow-x-hidden m-0 p-0">
+    <!-- Immersive Transparent Navigation -->
+    <nav
+        class="absolute top-0 left-0 w-full z-50 flex justify-between items-center px-8 py-8 md:px-[8vw] pointer-events-auto mix-blend-difference">
+        <a href="index.html"
+            class="font-label uppercase tracking-[0.2em] text-[0.7rem] md:text-[0.85rem] text-white hover:bg-white/10 px-4 py-2 rounded-sm transition-all duration-300">Home</a>
+        <div class="flex gap-2.5 md:gap-6">
+            <a href="#"
+                class="font-label uppercase tracking-[0.2em] text-[0.7rem] md:text-[0.85rem] text-white hover:bg-white/10 px-4 py-2 rounded-sm transition-all duration-300">About</a>
+            <a href="technical.html"
+                class="font-label uppercase tracking-[0.2em] text-[0.7rem] md:text-[0.85rem] text-white hover:bg-white/10 px-4 py-2 rounded-sm transition-all duration-300">Engineer</a>
+        </div>
+    </nav>
+
+    <!-- Cinematic Video Background rising from the black void -->
+    <video autoplay loop muted playsinline
+        class="absolute top-0 left-0 w-full h-[100vh] object-cover z-[-1] video-reveal pointer-events-none">
+        <source src="backgroundVideo/cherryField.mp4" type="video/mp4">
+    </video>
+
+    <div
+        class="hero-anchor h-[100vh] w-full flex flex-col justify-center items-center text-center px-12 md:px-24 pt-12 md:pt-24">
+        <div class="max-w-[42.36rem] flex flex-col items-center">
+            <span
+                class="font-label tracking-[0.3em] uppercase text-xs mb-[1.618rem] block shiny-text-pink invisible">The
+                Artist</span>
+            <h2 class="font-ade text-[4.236rem] md:text-[6.854rem] text-on-surface leading-[0.85] tracking-tighter"
+                style="transform: scale(1.1);">
+                <span class="decrypt-text text-secondary inline-block min-w-[200px]"
+                    data-original="WELCOME.">ARTIST.</span>
+            </h2>
+
+            <div class="mt-[4.236rem] invisible">
+                <a class="flex items-center gap-4 group/btn inline-flex">
+                    <span class="w-12 h-12 rounded-full border border-outline-variant flex items-center justify-center">
+                        <span class="material-symbols-outlined text-on-surface">arrow_forward</span>
+                    </span>
+                    <span class="font-label uppercase tracking-widest text-xs shiny-text-pink">Explore Creative</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="relative min-h-screen z-10 w-full px-[8vw] pb-[16vh] pt-[15vh] bg-[#e2e2e2]">
+
+    </div>
+
+    <script>
+        class Decryptor {
+            constructor(element, targetFont) {
+                this.element = element;
+                this.originalText = element.getAttribute('data-original').replace(/&amp;/g, '&');
+                this.chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*'.split('');
+                this.iterations = 0;
+
+                // Allow the user to experience the glitch decrypting effect over 1.25 seconds.
+                this.maxIterations = 25;
+                this.targetFont = targetFont;
+
+                // Native fonts + new imported fonts
+                this.availableFonts = ['Meylda', 'Sharpie', 'Space Grotesk', 'Ade Display'];
+            }
+
+            start() {
+                this.interval = setInterval(() => {
+                    this.iterations++;
+
+                    // Flash randomized fonts frantically during scramble sequence
+                    this.element.style.fontFamily = this.availableFonts[Math.floor(Math.random() * this.availableFonts.length)];
+
+                    if (this.iterations >= this.maxIterations) {
+                        clearInterval(this.interval);
+                        this.element.innerText = this.originalText;
+                        // Hard lock onto the permanently selected structural font
+                        this.element.style.fontFamily = this.targetFont;
+                    } else {
+                        // Iteratively render randomized symbols
+                        this.element.innerText = this.originalText.split('').map((char) => {
+                            if (char === ' ' || char === '\n') return char;
+                            return this.chars[Math.floor(Math.random() * this.chars.length)];
+                        }).join('');
+                    }
+                }, 50); /* Renders at 20 Frames Per Second */
+            }
+        }
+
+        window.addEventListener('load', () => {
+            const fontsToUse = ['Ade Display', 'Meylda', 'Sharpie'];
+            // Mathematics guaranteed random split: shuffle offline fonts
+            fontsToUse.sort(() => Math.random() - 0.5);
+
+            const elements = document.querySelectorAll('.decrypt-text');
+            elements.forEach((el, index) => {
+                // Ensure PULSE and PROSE natively grab distinctly disparate fonts 
+                const decryptor = new Decryptor(el, fontsToUse[index % fontsToUse.length]);
+                setTimeout(() => decryptor.start(), 300);
+            });
+        });
+    </script>
+</body>
+
+</html>
