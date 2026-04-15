@@ -1,37 +1,81 @@
 html {
     scroll-behavior: smooth;
 }
+
+* {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+*::-webkit-scrollbar {
+    display: none;
+}
+
 .material-symbols-outlined {
     font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
-.split-container { display: flex; width: 100%; height: 100vh; overflow: hidden; }
-.pane { flex-grow: 1; transition: flex-grow 0.81s cubic-bezier(0.85, 0, 0.15, 1); position: relative; overflow: hidden; min-width: 0; }
+.split-container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.pane {
+    flex-grow: 1;
+    transition: flex-grow 0.81s cubic-bezier(0.85, 0, 0.15, 1);
+    position: relative;
+    overflow: hidden;
+    min-width: 0;
+}
 
 /* Golden Ratio Expansion - 61.8% to 38.2% */
-.creative-side:hover { flex-grow: 1.618; }
-.technical-side:hover { flex-grow: 1.618; }
+.creative-side:hover {
+    flex-grow: 1.618;
+}
 
-.split-container:has(.technical-side:hover) .creative-side { flex-grow: 1; }
-.split-container:has(.creative-side:hover) .technical-side { flex-grow: 1; }
+.technical-side:hover {
+    flex-grow: 1.618;
+}
+
+.split-container:has(.technical-side:hover) .creative-side {
+    flex-grow: 1;
+}
+
+.split-container:has(.creative-side:hover) .technical-side {
+    flex-grow: 1;
+}
 
 /* Dim the non-hovered pane (contents included) by 38.2% (1 - 0.618) */
-.pane { transition: flex-grow 0.81s cubic-bezier(0.85, 0, 0.15, 1), opacity 0.618s ease; }
-.split-container:has(.technical-side:hover) .creative-side { opacity: 0.618; }
-.split-container:has(.creative-side:hover) .technical-side { opacity: 0.618; }
+.pane {
+    transition: flex-grow 0.81s cubic-bezier(0.85, 0, 0.15, 1), opacity 0.618s ease;
+}
+
+.split-container:has(.technical-side:hover) .creative-side {
+    opacity: 0.618;
+}
+
+.split-container:has(.creative-side:hover) .technical-side {
+    opacity: 0.618;
+}
 
 @font-face {
     font-family: 'MyCoffeeBreak';
     src: url('fonts/my-coffee-break-font/MyCoffeeBreak-d9E9g.otf') format('opentype');
 }
+
 @font-face {
     font-family: 'Ade Display';
     src: url('fonts/Ade%20Display%20Font/Ade-Display.otf') format('opentype');
 }
+
 @font-face {
     font-family: 'Meylda';
     src: url('fonts/meylda-font/Meylda-R9ZzM.ttf') format('truetype');
 }
+
 @font-face {
     font-family: 'Sharpie';
     src: url('fonts/Sharpie_Complete/Fonts/WEB/fonts/Sharpie-Black.woff2') format('woff2');
@@ -39,11 +83,14 @@ html {
 
 /* Auto-Rotate into Landscape forced layout on Portrait devices */
 @media screen and (orientation: portrait) and (max-width: 1024px) {
-    html, body {
+
+    html,
+    body {
         width: 100vw;
         height: 100vh;
-        overflow: hidden !important; 
+        overflow: hidden !important;
     }
+
     #app-orientation-wrapper {
         position: absolute;
         top: 0;
@@ -56,6 +103,7 @@ html {
         overflow-y: auto;
         background-color: #0e0e11;
     }
+
     .split-container {
         height: 100vw !important;
         width: 100vh !important;
@@ -66,25 +114,30 @@ html {
 body.transitioning .pane {
     pointer-events: none !important;
 }
+
 body.transitioning .pane.expanded {
     flex-grow: 1000 !important;
     background-color: #000000 !important;
     border: none !important;
     transition: flex-grow 1.2s cubic-bezier(0.85, 0, 0.15, 1), background-color 1.2s ease !important;
 }
+
 body.transitioning .pane.collapsed {
     flex-grow: 0.00001 !important;
     opacity: 0 !important;
     transition: flex-grow 1.2s cubic-bezier(0.85, 0, 0.15, 1), opacity 0.6s ease !important;
 }
+
 body.transitioning .pane.expanded .z-0 {
     opacity: 0 !important;
     transition: opacity 1s ease !important;
 }
-body.transitioning .pane.expanded .z-10 .flex-col > *:not(h2):not(p) {
+
+body.transitioning .pane.expanded .z-10 .flex-col>*:not(h2):not(p) {
     opacity: 0 !important;
     transition: opacity 0.4s ease !important;
 }
+
 body.transitioning .pane.expanded h2 {
     transform: scale(1.1) !important;
     transition: transform 1.5s cubic-bezier(0.2, 0, 0, 1) !important;
@@ -93,14 +146,16 @@ body.transitioning .pane.expanded h2 {
 .grid-overlay {
     /* Very subtle technical blue, matching the original faint opacity */
     background-image: linear-gradient(to right, rgba(148, 170, 255, 0.08) 1px, transparent 1px),
-                        linear-gradient(to bottom, rgba(148, 170, 255, 0.08) 1px, transparent 1px);
+        linear-gradient(to bottom, rgba(148, 170, 255, 0.08) 1px, transparent 1px);
     background-size: 40px 40px;
 }
+
 .dot-overlay {
     /* Very subtle primary pink to match the faint opacity */
     background-image: radial-gradient(circle, rgba(254, 1, 141, 0.15) 2px, transparent 2.5px);
     background-size: 26.18px 26.18px;
 }
+
 .glass-blur {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
@@ -108,10 +163,19 @@ body.transitioning .pane.expanded h2 {
 
 /* ── Shiny Text Effect (ported from ShinyText component) ── */
 @keyframes shine-sweep {
-    0%   { background-position: 150% center; }
-    50%  { background-position: -50% center; }
-    100% { background-position: 150% center; }
+    0% {
+        background-position: 150% center;
+    }
+
+    50% {
+        background-position: -50% center;
+    }
+
+    100% {
+        background-position: 150% center;
+    }
 }
+
 .shiny-text {
     background: linear-gradient(120deg, #acaaae 0%, #acaaae 35%, #ffffff 50%, #acaaae 65%, #acaaae 100%);
     background-size: 200% auto;
@@ -120,6 +184,7 @@ body.transitioning .pane.expanded h2 {
     -webkit-text-fill-color: transparent;
     animation: shine-sweep 4s ease-in-out infinite;
 }
+
 .shiny-text-pink {
     background: linear-gradient(120deg, #fe018d 0%, #fe018d 35%, #ff80c6 50%, #fe018d 65%, #fe018d 100%);
     background-size: 200% auto;
@@ -128,6 +193,7 @@ body.transitioning .pane.expanded h2 {
     -webkit-text-fill-color: transparent;
     animation: shine-sweep 4s ease-in-out infinite;
 }
+
 .shiny-text-blue {
     background: linear-gradient(120deg, #94aaff 0%, #94aaff 35%, #d4deff 50%, #94aaff 65%, #94aaff 100%);
     background-size: 200% auto;

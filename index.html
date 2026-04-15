@@ -90,6 +90,18 @@
             scroll-behavior: smooth;
         }
 
+        /* ── Absolute Scrollbar Annihilation ── */
+        ::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
+        
+        * {
+            -ms-overflow-style: none !important;
+            scrollbar-width: none !important;
+        }
+
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
@@ -212,9 +224,14 @@
             transition: opacity 1s ease !important;
         }
 
-        body.transitioning .pane.expanded .z-10 .flex-col>*:not(h2):not(p) {
+        body.transitioning .pane.expanded .z-10 .flex-col>*:not(h2) {
             opacity: 0 !important;
-            transition: opacity 0.4s ease !important;
+            transition: opacity 0.3s ease !important;
+        }
+
+        body.transitioning .pane.expanded h2 .fade-out-the {
+            opacity: 0 !important;
+            transition: opacity 0.3s ease !important;
         }
 
         body.transitioning .pane.expanded h2 {
@@ -309,7 +326,7 @@
                     <div class="max-w-[42.36rem] flex flex-col items-center">
                         <h2
                             class="font-ade text-[4.236rem] md:text-[6.854rem] text-on-surface leading-[0.85] tracking-tighter group-hover:scale-[1.062] group-focus-within:scale-[1.062] transition-transform duration-[618ms]">
-                            THE <br /><span class="text-secondary">ARTIST.</span>
+                            <span class="fade-out-the inline-block transition-opacity duration-300">THE</span> <br /><span class="text-secondary">ARTIST.</span>
                         </h2>
                         <p
                             class="mt-[2.618rem] font-body text-[1.125rem] leading-[1.618] max-w-[38.2rem] opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-[618ms] delay-[382ms]">
@@ -350,7 +367,7 @@
                     <div class="max-w-[42.36rem] flex flex-col items-center">
                         <h2
                             class="font-ade text-[4.236rem] md:text-[6.854rem] text-on-surface leading-[0.85] tracking-tighter group-hover:scale-[1.062] group-focus-within:scale-[1.062] transition-transform duration-[618ms]">
-                            THE <br /><span class="text-primary">CODER.</span>
+                            <span class="fade-out-the inline-block transition-opacity duration-300">THE</span> <br /><span class="text-primary">CODER.</span>
                         </h2>
                         <p
                             class="mt-[2.618rem] font-body text-[1.125rem] leading-[1.618] max-w-[38.2rem] opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-[618ms] delay-[382ms]">

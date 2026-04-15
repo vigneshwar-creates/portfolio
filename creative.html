@@ -81,8 +81,24 @@
         a,
         button,
         [role="button"],
-        .group\\/btn {
+        .group\/btn,
+        .interactive-element {
             cursor: url("cursors/Pink Glossy Arrow & Hand 3D/Pink Glossy Arrow & Hand 3D--pointer--SweezyCursors.png"), pointer !important;
+        }
+
+        /* Native Infinite Marquee logic (Replacing React dependencies) */
+        @keyframes infinite-scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+        
+        .animate-infinite-scroll {
+            animation: infinite-scroll 20s linear infinite;
+        }
+        
+        /* Pause on hover to allow user to stare down software */
+        .group:hover .animate-infinite-scroll {
+            animation-play-state: paused;
         }
     </style>
 </head>
@@ -130,8 +146,125 @@
         </div>
     </div>
 
-    <div class="relative min-h-screen z-10 w-full px-[8vw] pb-[16vh] pt-[15vh] bg-[#e2e2e2]">
+    <div class="relative min-h-screen z-10 w-full px-[4vw] md:px-[8vw] pb-[16vh] pt-[15vh] bg-[#e2e2e2] text-[#000000]">
+        
+        <!-- Profile / About Identity Block -->
+        <div class="max-w-[1400px] mx-auto mb-24 border-4 border-black bg-white shadow-[8px_8px_0px_#000000] overflow-hidden flex flex-col md:flex-row interactive-element">
+            
+            <!-- Left: Square Headshot -->
+            <div class="w-full md:w-[40%] aspect-square md:aspect-auto border-b-4 md:border-b-0 md:border-r-4 border-black flex flex-col justify-center items-center bg-black relative overflow-hidden group/headshot">
+                <!-- Harsh dot-grid background -->
+                <div class="absolute inset-0 z-0 opacity-20 bg-[radial-gradient(circle,_#fff_2px,_transparent_2.5px)] [background-size:12px_12px]"></div>
+                <!-- Profile Image constrained to prevent blur -->
+                <img src="https://media.licdn.com/dms/image/v2/D5603AQHmVxvCICfvBg/profile-displayphoto-scale_200_200/B56ZwyK079H0Ac-/0/1770368228536?e=1778112000&v=beta&t=CKi8EhKOoItE0GhiSg4bhGb1K_gbvyhFEOVTh1AXgK0" 
+                     alt="Vigneshwar J" 
+                     class="relative z-10 w-32 h-32 md:w-48 md:h-48 object-cover border-4 border-white shadow-[4px_4px_0_#fff] grayscale contrast-125 opacity-90 group-hover/headshot:scale-105 group-hover/headshot:grayscale-0 group-hover/headshot:opacity-100 transition-all duration-500 group-hover/headshot:shadow-[8px_8px_0_#fff]">
+            </div>
 
+            <!-- Right: Identity Typography -->
+            <div class="w-full md:w-[60%] flex flex-col justify-between p-8 md:p-12 bg-white">
+                <div>
+                    <h3 class="font-ade text-6xl md:text-8xl uppercase leading-none tracking-tighter text-black mb-6 drop-shadow-[4px_4px_0_#e2e2e2]">VIGNESHWAR J</h3>
+                    <p class="font-space text-lg md:text-xl font-medium leading-[1.618] text-black">
+                        I blur the lines between spatial geometry and brutalist digital engineering. Crafting subversive, motion-driven narratives that challenge traditional layouts. I don't just design interfaces; I construct architectural experiences where instinct dictates logic, and every frame tells a story of aggressive, unyielding creativity.
+                    </p>
+                </div>
+                
+                <!-- Arsenal Infinite Native Logo Loop Array -->
+                <div class="mt-12 border-t-4 border-black pt-8 overflow-hidden group">
+                    <span class="font-label font-bold tracking-[0.3em] uppercase text-xs mb-6 block text-black">ARSENAL / TOOLKIT</span>
+                    
+                    <div class="w-full relative flex items-center">
+                        <!-- Scroll track layer scaled safely up -->
+                        <div class="flex animate-infinite-scroll w-max group-hover:pause gap-16 md:gap-24 pl-4 pr-16">
+                            <!-- Instance 1 -->
+                            <div class="flex gap-16 md:gap-24 items-center justify-between min-w-max">
+                                <img src="svgElements/blender.svg" alt="Blender" class="h-10 md:h-12 w-auto object-contain brightness-0 mix-blend-multiply">
+                                <img src="svgElements/blockbench.svg" alt="Blockbench" class="h-10 md:h-12 w-auto object-contain brightness-0 mix-blend-multiply">
+                                <img src="svgElements/adobepremierepro.svg" alt="Premiere Pro" class="h-10 md:h-12 w-auto object-contain brightness-0 mix-blend-multiply">
+                                <img src="svgElements/adobeaftereffects.svg" alt="After Effects" class="h-10 md:h-12 w-auto object-contain brightness-0 mix-blend-multiply">
+                                <img src="svgElements/pixlr.svg" alt="Pixlr" class="h-10 md:h-12 w-auto object-contain brightness-0 mix-blend-multiply">
+                                <img src="svgElements/celtx.svg" alt="Celtx" class="h-10 md:h-12 w-auto object-contain">
+                            </div>
+                            <!-- Duplicate instance 2 -->
+                            <div class="flex gap-16 md:gap-24 items-center justify-between min-w-max" aria-hidden="true">
+                                <img src="svgElements/blender.svg" alt="Blender" class="h-10 md:h-12 w-auto object-contain brightness-0 mix-blend-multiply">
+                                <img src="svgElements/blockbench.svg" alt="Blockbench" class="h-10 md:h-12 w-auto object-contain brightness-0 mix-blend-multiply">
+                                <img src="svgElements/adobepremierepro.svg" alt="Premiere Pro" class="h-10 md:h-12 w-auto object-contain brightness-0 mix-blend-multiply">
+                                <img src="svgElements/adobeaftereffects.svg" alt="After Effects" class="h-10 md:h-12 w-auto object-contain brightness-0 mix-blend-multiply">
+                                <img src="svgElements/pixlr.svg" alt="Pixlr" class="h-10 md:h-12 w-auto object-contain brightness-0 mix-blend-multiply">
+                                <img src="svgElements/celtx.svg" alt="Celtx" class="h-10 md:h-12 w-auto object-contain">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-12 border-b-4 border-black pb-4 flex justify-between items-end mt-[10vh]">
+            <h3 class="font-ade text-4xl md:text-6xl tracking-tighter uppercase leading-none">Selected Works</h3>
+            <span class="font-label tracking-widest uppercase text-sm">MY ARCHIVES</span>
+        </div>
+    
+        <!-- Brutalist Bento Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-6 md:gap-8 auto-rows-min max-w-[1400px] mx-auto">
+            
+            <!-- Main Feature Project - Video Embed -->
+            <div class="interactive-element md:col-span-2 md:row-span-2 group relative border-4 border-black bg-black shadow-[8px_8px_0px_#000000] hover:translate-y-[-4px] hover:shadow-[12px_12px_0px_#fe018d] transition-all duration-300 cursor-pointer overflow-hidden flex flex-col" onclick="toggleDescription(this)">
+                <div class="border-b-4 border-black p-3 bg-white flex justify-between items-center z-20">
+                    <span class="font-label uppercase font-black tracking-widest text-xs">StoneQuill Studios</span>
+                    <span class="material-symbols-outlined text-sm">arrow_outward</span>
+                </div>
+                
+                <div class="relative w-full aspect-video md:aspect-auto md:flex-grow bg-[#000]">
+                    <!-- YouTube embed pointer-events-none to act as a background video that plays silently -->
+                    <iframe class="absolute top-0 left-0 w-full h-full md:min-h-[500px] pointer-events-none scale-105" src="https://www.youtube.com/embed/gdBZ6wkExi4?autoplay=1&mute=1&loop=1&playlist=gdBZ6wkExi4&controls=0&modestbranding=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    
+                    <!-- Description Overlay triggered by JS -->
+                    <div class="project-desc relative w-full h-full flex justify-center items-center opacity-0 transition-opacity duration-300 z-10 bg-[#fe018d]/95 p-8">
+                        <p class="font-space font-medium text-white text-lg md:text-2xl max-w-2xl text-center leading-relaxed">
+                            I worked with <strong class="font-black text-black bg-white px-2 py-1 uppercase">StoneQuill Studios</strong>, helping in animation and editing to finalize their intense visual identity. 
+                        </p>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Secondary Project 1 -->
+            <div class="interactive-element group relative border-4 border-black bg-white shadow-[8px_8px_0px_#000000] hover:translate-y-[-4px] hover:shadow-[12px_12px_0px_#fe018d] transition-all duration-300 cursor-pointer flex flex-col aspect-square md:aspect-auto" onclick="toggleDescription(this)">
+                <div class="border-b-4 border-black p-3 bg-white z-20">
+                    <span class="font-label uppercase font-black tracking-widest text-xs">Project_02</span>
+                </div>
+                <div class="relative flex-grow flex justify-center items-center p-8 overflow-hidden bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop')] bg-cover bg-center text-white">
+                    <div class="absolute inset-0 bg-black/40 mix-blend-multiply"></div>
+                    <h4 class="relative z-10 font-ade text-4xl md:text-5xl mix-blend-difference uppercase">Neon<br/>Void</h4>
+                    
+                    <!-- Description Overlay -->
+                    <div class="project-desc absolute inset-0 bg-[#000000]/95 border-4 border-[#fe018d] p-6 flex flex-col justify-center items-center opacity-0 transition-opacity duration-300 z-10">
+                        <p class="font-space font-medium text-[#fe018d] text-md text-center">
+                            Audio-visual synchronization for experimental web experiences. Form meets void.
+                        </p>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Secondary Project 2 -->
+            <div class="interactive-element group relative border-4 border-black bg-[#fe018d] shadow-[8px_8px_0px_#000000] hover:translate-y-[-4px] transition-all duration-300 cursor-pointer flex flex-col aspect-square md:aspect-auto" onclick="toggleDescription(this)">
+                <div class="border-b-4 border-black p-3 bg-black text-white flex justify-between items-center z-20">
+                    <span class="font-label uppercase font-black tracking-widest text-xs">Project_03</span>
+                </div>
+                <div class="relative flex-grow flex justify-center items-center p-8 overflow-hidden">
+                    <h4 class="relative z-10 font-label tracking-[0.4em] text-black text-xl text-center uppercase border-4 border-black p-4 font-black bg-white/50 backdrop-blur-sm shadow-[4px_4px_0_#000]">Archive</h4>
+                    
+                    <!-- Description Overlay -->
+                    <div class="project-desc absolute inset-0 bg-white p-6 flex flex-col justify-center items-center opacity-0 transition-opacity duration-300 z-10 border-8 border-black">
+                        <p class="font-space font-black text-black text-lg text-center uppercase">
+                            Brutalist Typography & Architectural Layouts. Raw semantics.
+                        </p>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
     </div>
 
     <script>
@@ -185,6 +318,30 @@
                 setTimeout(() => decryptor.start(), 300);
             });
         });
+
+        // Brutalist Bento Grid Interaction
+        function toggleDescription(element) {
+            const desc = element.querySelector('.project-desc');
+            const allDescs = document.querySelectorAll('.project-desc');
+            
+            if(desc) {
+                if(desc.classList.contains('opacity-0')) {
+                    // Close all other descriptions
+                    allDescs.forEach(el => {
+                        el.classList.remove('opacity-100');
+                        el.classList.add('opacity-0');
+                    });
+                    // Open this one
+                    desc.classList.remove('opacity-0');
+                    desc.classList.add('opacity-100');
+                } else {
+                    // Close if already open
+                    desc.classList.remove('opacity-100');
+                    desc.classList.add('opacity-0');
+                }
+            }
+        }
+
     </script>
 </body>
 
