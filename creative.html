@@ -4,7 +4,15 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>The Artist | Creative</title>
+    <meta name="description" content="Vigneshwar J — Creative portfolio. Filmmaker, Blockbench modeller, web animator & motion designer." />
+    <meta property="og:title" content="Vigneshwar J | Creative" />
+    <meta name="theme-color" content="#000000" />
+    <!-- Performance: DNS prefetch for all external origins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com" />
+    <link rel="dns-prefetch" href="https://www.youtube.com" />
+    <title>Vigneshwar J | Creative</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;700;800;900&display=swap"
         rel="stylesheet" />
@@ -13,6 +21,107 @@
     <script src="tailwind-config.js"></script>
     <link href="global.css" rel="stylesheet" />
     <style>
+        :root {
+            /* Full Spectrum Palette */
+            --color-cotton-candy-50: #fde8eb;
+            --color-cotton-candy-100: #fad1d7;
+            --color-cotton-candy-200: #f6a2af;
+            --color-cotton-candy-300: #f17487;
+            --color-cotton-candy-400: #ed455e;
+            --color-cotton-candy-500: #e81736;
+            --color-cotton-candy-600: #ba122b;
+            --color-cotton-candy-700: #8b0e21;
+            --color-cotton-candy-800: #5d0916;
+            --color-cotton-candy-900: #2e050b;
+            --color-cotton-candy-950: #200308;
+
+            --color-light-coral-50: #fde7e9;
+            --color-light-coral-100: #fccfd3;
+            --color-light-coral-200: #f8a0a7;
+            --color-light-coral-300: #f5707b;
+            --color-light-coral-400: #f2404f;
+            --color-light-coral-500: #ee1123;
+            --color-light-coral-600: #bf0d1c;
+            --color-light-coral-700: #8f0a15;
+            --color-light-coral-800: #5f070e;
+            --color-light-coral-900: #300307;
+            --color-light-coral-950: #210205;
+
+            --color-fuchsia-pop-50: #fbeaf7;
+            --color-fuchsia-pop-100: #f7d4ee;
+            --color-fuchsia-pop-200: #efa9dd;
+            --color-fuchsia-pop-300: #e77ecd;
+            --color-fuchsia-pop-400: #de54bc;
+            --color-fuchsia-pop-500: #d629ab;
+            --color-fuchsia-pop-600: #ab2189;
+            --color-fuchsia-pop-700: #811867;
+            --color-fuchsia-pop-800: #561044;
+            --color-fuchsia-pop-900: #2b0822;
+            --color-fuchsia-pop-950: #1e0618;
+
+            --color-grape-soda-50: #f8edf7;
+            --color-grape-soda-100: #f1daef;
+            --color-grape-soda-200: #e2b6df;
+            --color-grape-soda-300: #d491d0;
+            --color-grape-soda-400: #c66cc0;
+            --color-grape-soda-500: #b847b0;
+            --color-grape-soda-600: #93398d;
+            --color-grape-soda-700: #6e2b6a;
+            --color-grape-soda-800: #491d46;
+            --color-grape-soda-900: #250e23;
+            --color-grape-soda-950: #1a0a19;
+
+            --color-midnight-violet-50: #f6eff4;
+            --color-midnight-violet-100: #eddee9;
+            --color-midnight-violet-200: #dbbdd2;
+            --color-midnight-violet-300: #c99cbc;
+            --color-midnight-violet-400: #b77ba6;
+            --color-midnight-violet-500: #a45b90;
+            --color-midnight-violet-600: #844873;
+            --color-midnight-violet-700: #633656;
+            --color-midnight-violet-800: #422439;
+            --color-midnight-violet-900: #21121d;
+            --color-midnight-violet-950: #170d14;
+
+            /* Base Semantic Mapping */
+            --cotton-candy: var(--color-cotton-candy-200);
+            --light-coral: var(--color-light-coral-300);
+            --fuchsia-pop: var(--color-fuchsia-pop-400);
+            --grape-soda: var(--color-grape-soda-600);
+            --midnight-violet: var(--color-midnight-violet-900);
+        }
+
+        .creative-gradient-bg {
+            background: linear-gradient(135deg, var(--cotton-candy), var(--light-coral), var(--fuchsia-pop), var(--grape-soda), var(--midnight-violet));
+        }
+
+        .creative-gradient-overlay {
+            background: linear-gradient(135deg, rgba(245, 156, 169, 0.95), rgba(246, 130, 140, 0.95), rgba(223, 87, 188, 0.95), rgba(160, 62, 153, 0.95), rgba(55, 30, 48, 0.95));
+        }
+
+        .creative-gradient-text {
+            background: linear-gradient(90deg, var(--fuchsia-pop), var(--cotton-candy), var(--light-coral), var(--grape-soda));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        @keyframes sweep-gradient {
+            0% { background-position: 0% center; }
+            50% { background-position: 100% center; }
+            100% { background-position: 0% center; }
+        }
+
+        .shiny-creative-text {
+            background: linear-gradient(120deg, var(--cotton-candy), var(--light-coral), var(--fuchsia-pop), var(--light-coral), var(--cotton-candy));
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: sweep-gradient 4s ease-in-out infinite;
+        }
+
         /* Entry Animation: seamlessly continues the index.html sweep */
         @keyframes page-arrive {
             0% {
@@ -39,8 +148,7 @@
         }
 
         .hero-anchor {
-            /* Keep it centered initially, then push it up gracefully after 0.5s */
-            animation: push-up 1.5s cubic-bezier(0.85, 0, 0.15, 1) 0.5s forwards;
+            /* Kept centered initially without upwards animation to respect welcome placement */
         }
 
         .content-reveal {
@@ -68,8 +176,43 @@
 
         .video-reveal {
             opacity: 0;
-            /* Delayed fade-in starts precisely as the title sweeps upward away from center */
             animation: fade-in-video 2.5s cubic-bezier(0.1, 0.9, 0.2, 1) 0.8s forwards;
+        }
+
+        @keyframes fade-in-nav {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .nav-reveal {
+            opacity: 0;
+            animation: fade-in-nav 1s cubic-bezier(0.85, 0, 0.15, 1) forwards 1.8s;
+        }
+
+        /* Prevent animations before page assets are fully loaded */
+        body.not-loaded *,
+        body.not-loaded {
+            animation-play-state: paused !important;
+        }
+
+        /* Scroll Reveal Tilt Animations */
+        .scroll-tilt-element {
+            /* Fade effect strictly removed by user request, preserving only pitch overlap */
+            opacity: 1;
+            transform: perspective(1500px) translateY(12vw) rotateX(12deg) rotateZ(-1deg);
+            transform-origin: top center;
+            transition: transform 1.5s cubic-bezier(0.1, 0.9, 0.2, 1);
+            will-change: transform;
+        }
+
+        .scroll-tilt-element.tilt-scrolled {
+            transform: perspective(1500px) translateY(0) rotateX(0deg) rotateZ(0deg);
         }
 
         /* Custom 3D Pink Cursors for the Artist Sequence */
@@ -103,76 +246,160 @@
     </style>
 </head>
 
-<body class="bg-[#000000] text-on-surface font-body overflow-x-hidden m-0 p-0">
+<body class="not-loaded bg-[#000000] text-on-surface font-body overflow-x-hidden m-0 p-0">
+
+    <!-- Hidden YouTube Music Player -->
+    <div id="yt-player-creative" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;overflow:hidden;">
+        <div id="yt-iframe-creative"></div>
+    </div>
+
+    <!-- Music Toggle Button (Bottom Right) -->
+    <button id="music-toggle-creative" onclick="toggleMusic()" title="Toggle music"
+        style="position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;width:48px;height:48px;border-radius:50%;background:var(--color-fuchsia-pop-500);border:2px solid rgba(214,41,171,0.4);box-shadow:0 4px 20px rgba(214,41,171,0.3);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s ease;">
+        <svg id="music-icon-off" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        <div id="music-icon-on" style="display:none;align-items:flex-end;gap:2px;height:20px;">
+            <span style="width:3px;background:#fff;border-radius:2px;animation:cbar1 0.8s ease infinite;"></span>
+            <span style="width:3px;background:#fff;border-radius:2px;animation:cbar2 0.8s ease infinite 0.15s;"></span>
+            <span style="width:3px;background:#fff;border-radius:2px;animation:cbar3 0.8s ease infinite 0.3s;"></span>
+            <span style="width:3px;background:#fff;border-radius:2px;animation:cbar2 0.8s ease infinite 0.45s;"></span>
+        </div>
+    </button>
+    <style>
+        @keyframes cbar1 { 0%,100%{height:6px} 50%{height:18px} }
+        @keyframes cbar2 { 0%,100%{height:12px} 50%{height:6px} }
+        @keyframes cbar3 { 0%,100%{height:18px} 50%{height:10px} }
+    </style>
+    
+    <!-- Persona-Inspired Kinetic Interaction Menu (Bottom Left) -->
+    <div id="hud-nav-wrapper" class="fixed bottom-6 left-6 md:bottom-12 md:left-12 z-[100] translate-y-[150px] opacity-0 transition-transform duration-[500ms] ease-[cubic-bezier(0.17,0.84,0.44,1)] flex items-center justify-center">
+        <!-- Rigid Trigger Core -->
+        <div id="hud-circle" class="relative w-14 h-14 bg-white border-4 border-black transition-all duration-300 ease-[cubic-bezier(0.17,0.84,0.44,1)] cursor-pointer flex items-center justify-center shadow-[4px_4px_0_0_#000] scale-100 origin-center z-50">
+            
+            <!-- Sharp Star Icon -->
+            <div id="hud-icon" class="absolute z-50 text-black transition-all duration-[250ms] flex justify-center items-center">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2L15 9h8l-6 5 2 9-7-5-7 5 2-9-6-5h8z" />
+                </svg>
+            </div>
+            
+            <!-- Persona Menu Container (Flares Outward Up & Right) -->
+            <div id="hud-buttons" class="absolute bottom-1/2 left-1/2 w-[240px] h-[240px] opacity-0 scale-0 transition-transform duration-[200ms] ease-out pointer-events-none origin-bottom-left">
+                
+                <!-- Chaotic Background Star 1 (Black Shadow Layer) -->
+                <div id="hud-bg" class="absolute inset-0 bg-black opacity-0 scale-50 transition-all duration-[300ms] ease-out origin-bottom-left" style="clip-path: polygon(0% 100%, 15% 55%, 5% 15%, 45% 35%, 85% 5%, 70% 45%, 100% 65%, 65% 75%, 85% 100%, 35% 85%);"></div>
+
+                <!-- Chaotic Background Star 2 (Fuchsia Core) -->
+                <div id="hud-bg-inner" class="absolute inset-2 bg-[var(--color-fuchsia-pop-500)] opacity-0 scale-50 transition-all duration-[200ms] ease-out delay-75 origin-bottom-left" style="clip-path: polygon(5% 95%, 18% 58%, 10% 22%, 48% 40%, 82% 12%, 68% 48%, 95% 65%, 62% 72%, 80% 95%, 38% 82%);"></div>
+
+                <!-- Rigid Persona Text Blocks -->
+                <!-- About Button (Top-Left) -->
+                <a href="#" class="absolute left-[20%] top-[15%] transition-transform duration-[100ms] hover:scale-110 group/btn z-20 origin-center -translate-x-1/2 -translate-y-1/2 flex items-center justify-center -rotate-[12deg]">
+                    <div class="bg-white border-[3px] border-black px-4 py-1 skew-x-[-15deg] group-hover/btn:bg-black transition-colors shadow-[4px_4px_0_0_#000] group-hover/btn:shadow-[4px_4px_0_0_var(--color-fuchsia-pop-300)]">
+                        <span class="text-black font-black uppercase text-lg tracking-tighter skew-x-[15deg] block group-hover/btn:text-white transition-colors">About</span>
+                    </div>
+                </a>
+
+        <!-- Home Button (Top-Right) -->
+                <a href="index.html" class="absolute left-[75%] top-[35%] transition-transform duration-[100ms] hover:scale-110 group/btn z-20 origin-center -translate-x-1/2 -translate-y-1/2 flex items-center justify-center rotate-[8deg]">
+                    <div class="bg-white border-[3px] border-black px-4 py-1 skew-x-[-15deg] group-hover/btn:bg-black transition-colors shadow-[4px_4px_0_0_#000] group-hover/btn:shadow-[4px_4px_0_0_var(--color-fuchsia-pop-300)]">
+                        <span class="text-black font-black uppercase text-lg tracking-tighter skew-x-[15deg] block group-hover/btn:text-white transition-colors">Home</span>
+                    </div>
+                </a>
+
+                <!-- Code Button (Bottom-Right) -->
+                <a href="technical.html" class="absolute left-[65%] top-[80%] transition-transform duration-[100ms] hover:scale-110 group/btn z-20 origin-center -translate-x-1/2 -translate-y-1/2 flex items-center justify-center -rotate-[5deg]">
+                    <div class="bg-white border-[3px] border-black px-4 py-1 skew-x-[-15deg] group-hover/btn:bg-black transition-colors shadow-[4px_4px_0_0_#000] group-hover/btn:shadow-[4px_4px_0_0_var(--color-fuchsia-pop-300)]">
+                        <span class="text-black font-black uppercase text-lg tracking-tighter skew-x-[15deg] block group-hover/btn:text-white transition-colors">Code</span>
+                    </div>
+                </a>
+
+                <!-- Contact Button (Bottom-Left) -->
+                <button onclick="openContactModal()" class="absolute left-[10%] top-[72%] transition-transform duration-[100ms] hover:scale-110 group/btn z-20 origin-center -translate-x-1/2 -translate-y-1/2 flex items-center justify-center rotate-[10deg] bg-transparent border-0 cursor-pointer p-0">
+                    <div class="bg-[var(--color-fuchsia-pop-500)] border-[3px] border-black px-4 py-1 skew-x-[-15deg] group-hover/btn:bg-black transition-colors shadow-[4px_4px_0_0_#000] group-hover/btn:shadow-[4px_4px_0_0_var(--color-fuchsia-pop-300)]">
+                        <span class="text-white font-black uppercase text-lg tracking-tighter skew-x-[15deg] block group-hover/btn:text-white transition-colors">Contact</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Immersive Transparent Navigation -->
     <nav
-        class="absolute top-0 left-0 w-full z-50 flex justify-between items-center px-8 py-8 md:px-[8vw] pointer-events-auto mix-blend-difference">
+        class="absolute top-0 left-0 w-full z-50 flex justify-between items-center px-8 py-8 md:px-[8vw] pointer-events-auto nav-reveal parallax-foreground will-change-transform">
         <a href="index.html"
-            class="font-label uppercase tracking-[0.2em] text-[0.7rem] md:text-[0.85rem] text-white hover:bg-white/10 px-4 py-2 rounded-sm transition-all duration-300">Home</a>
+            class="font-label uppercase tracking-[0.2em] text-[0.7rem] md:text-[0.85rem] text-white bg-black/40 border border-white/10 hover:border-[var(--fuchsia-pop)] hover:bg-[var(--fuchsia-pop)] backdrop-blur-md px-4 py-2 rounded-sm transition-all duration-300">Home</a>
         <div class="flex gap-2.5 md:gap-6">
             <a href="#"
-                class="font-label uppercase tracking-[0.2em] text-[0.7rem] md:text-[0.85rem] text-white hover:bg-white/10 px-4 py-2 rounded-sm transition-all duration-300">About</a>
+                class="font-label uppercase tracking-[0.2em] text-[0.7rem] md:text-[0.85rem] text-white bg-black/40 border border-white/10 hover:border-[var(--fuchsia-pop)] hover:bg-[var(--fuchsia-pop)] backdrop-blur-md px-4 py-2 rounded-sm transition-all duration-300">About</a>
             <a href="technical.html"
-                class="font-label uppercase tracking-[0.2em] text-[0.7rem] md:text-[0.85rem] text-white hover:bg-white/10 px-4 py-2 rounded-sm transition-all duration-300">Engineer</a>
+                class="font-label uppercase tracking-[0.2em] text-[0.7rem] md:text-[0.85rem] text-white bg-black/40 border border-white/10 hover:border-primary hover:bg-primary backdrop-blur-md px-4 py-2 rounded-sm transition-all duration-300">Engineer</a>
+            <button onclick="openContactModal()"
+                class="font-label uppercase tracking-[0.2em] text-[0.7rem] md:text-[0.85rem] text-white bg-[var(--color-fuchsia-pop-500)]/80 border border-[var(--fuchsia-pop)] hover:bg-[var(--fuchsia-pop)] backdrop-blur-md px-4 py-2 rounded-sm transition-all duration-300 cursor-pointer">Contact</button>
         </div>
     </nav>
 
-    <!-- Cinematic Video Background rising from the black void -->
-    <video autoplay loop muted playsinline
-        class="absolute top-0 left-0 w-full h-[100vh] object-cover z-[-1] video-reveal pointer-events-none">
-        <source src="backgroundVideo/cherryField.mp4" type="video/mp4">
-    </video>
+    <!-- Cinematic Video Background Fixed and Parallax ready -->
+    <div class="fixed top-0 left-0 w-full h-[100vh] z-[-1] overflow-hidden bg-black pointer-events-none">
+        <div id="parallax-video" class="absolute top-1/2 left-1/2 w-[110vw] h-[110vh] -translate-x-1/2 -translate-y-1/2">
+            <video autoplay loop muted playsinline
+                class="w-full h-full object-cover video-reveal">
+                <source src="backgroundVideo/cherryField.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
 
     <div
-        class="hero-anchor h-[100vh] w-full flex flex-col justify-center items-center text-center px-12 md:px-24 pt-12 md:pt-24">
-        <div class="max-w-[42.36rem] flex flex-col items-center">
+        class="hero-anchor relative h-[100vh] w-full flex flex-col justify-center items-center text-center px-12 md:px-24 pt-12 md:pt-24 z-30 pointer-events-none">
+        <div class="max-w-[42.36rem] flex flex-col items-center pointer-events-auto parallax-foreground w-full will-change-transform">
             <span
-                class="font-label tracking-[0.3em] uppercase text-xs mb-[1.618rem] block shiny-text-pink invisible">The
+                class="font-label tracking-[0.3em] uppercase text-xs mb-[1.618rem] block shiny-creative-text invisible">The
                 Artist</span>
-            <h2 class="font-ade text-[4.236rem] md:text-[6.854rem] text-on-surface leading-[0.85] tracking-tighter"
-                style="transform: scale(1.1);">
-                <span class="decrypt-text text-secondary inline-block min-w-[200px]"
-                    data-original="WELCOME.">ARTIST.</span>
-            </h2>
+            <div id="welcome-parallax-wrapper" class="w-full h-12 flex items-center justify-center relative translate-y-0 z-20 will-change-transform">
+                <h2 id="welcome-text-container" class="font-ade text-[13.33rem] md:text-[21.57rem] text-on-surface leading-none tracking-tighter origin-center will-change-transform m-0 p-0"
+                    style="transform: scale(0.3495);">
+                    <span class="decrypt-text creative-gradient-text inline-block min-w-max text-center whitespace-nowrap px-8"
+                        data-original="ARTIST.">ARTIST.</span>
+                </h2>
+            </div>
 
             <div class="mt-[4.236rem] invisible">
                 <a class="flex items-center gap-4 group/btn inline-flex">
-                    <span class="w-12 h-12 rounded-full border border-outline-variant flex items-center justify-center">
-                        <span class="material-symbols-outlined text-on-surface">arrow_forward</span>
+                    <span class="w-12 h-12 rounded-full border border-outline-variant flex items-center justify-center hover:border-[var(--fuchsia-pop)] transition-colors">
+                        <span class="material-symbols-outlined text-on-surface group-hover/btn:text-[var(--fuchsia-pop)] transition-colors">arrow_forward</span>
                     </span>
-                    <span class="font-label uppercase tracking-widest text-xs shiny-text-pink">Explore Creative</span>
+                    <span class="font-label uppercase tracking-widest text-xs shiny-creative-text">Explore Creative</span>
                 </a>
             </div>
         </div>
     </div>
 
-    <div class="relative min-h-screen z-10 w-full px-[4vw] md:px-[8vw] pb-[16vh] pt-[15vh] bg-[#e2e2e2] text-[#000000]">
+    <div id="content-block" class="relative min-h-screen z-10 w-full px-[6vw] md:px-[10vw] pb-[25vh] pt-[20vh] bg-[#e2e2e2] text-[#000000] scroll-tilt-element">
         
         <!-- Profile / About Identity Block -->
-        <div class="max-w-[1400px] mx-auto mb-24 border-4 border-black bg-white shadow-[8px_8px_0px_#000000] overflow-hidden flex flex-col md:flex-row interactive-element">
+        <div class="relative max-w-[1400px] mx-auto mb-32 border-4 border-black bg-white shadow-[16px_16px_0px_#000000] flex flex-col interactive-element mt-16 md:mt-0">
             
-            <!-- Left: Square Headshot -->
-            <div class="w-full md:w-[40%] aspect-square md:aspect-auto border-b-4 md:border-b-0 md:border-r-4 border-black flex flex-col justify-center items-center bg-black relative overflow-hidden group/headshot">
-                <!-- Harsh dot-grid background -->
-                <div class="absolute inset-0 z-0 opacity-20 bg-[radial-gradient(circle,_#fff_2px,_transparent_2.5px)] [background-size:12px_12px]"></div>
-                <!-- Profile Image constrained to prevent blur -->
-                <img src="https://media.licdn.com/dms/image/v2/D5603AQHmVxvCICfvBg/profile-displayphoto-scale_200_200/B56ZwyK079H0Ac-/0/1770368228536?e=1778112000&v=beta&t=CKi8EhKOoItE0GhiSg4bhGb1K_gbvyhFEOVTh1AXgK0" 
-                     alt="Vigneshwar J" 
-                     class="relative z-10 w-32 h-32 md:w-48 md:h-48 object-cover border-4 border-white shadow-[4px_4px_0_#fff] grayscale contrast-125 opacity-90 group-hover/headshot:scale-105 group-hover/headshot:grayscale-0 group-hover/headshot:opacity-100 transition-all duration-500 group-hover/headshot:shadow-[8px_8px_0_#fff]">
+            <!-- Sticker Photo Overlapping Top Right -->
+            <div class="absolute -top-12 -right-6 md:-top-16 md:-right-12 z-50 w-32 h-32 md:w-48 md:h-48 rotate-6 group/sticker hover:rotate-0 transition-transform duration-500 shadow-[8px_8px_0_#000000] border-4 border-black bg-white p-2">
+                <div class="w-full h-full relative overflow-hidden bg-black flex justify-center items-center">
+                    <div class="absolute inset-0 z-0 opacity-20 bg-[radial-gradient(circle,_#fff_2px,_transparent_2.5px)] [background-size:24px_24px]"></div>
+                    <img src="webpElements/profile.webp" 
+                         alt="Vigneshwar J" 
+                         class="relative z-10 w-full h-full object-cover grayscale contrast-150 group-hover/sticker:grayscale-0 transition-all duration-500 shadow-[inset_0_0_10px_rgba(0,0,0,0.5)]">
+                </div>
             </div>
 
-            <!-- Right: Identity Typography -->
-            <div class="w-full md:w-[60%] flex flex-col justify-between p-8 md:p-12 bg-white">
-                <div>
-                    <h3 class="font-ade text-6xl md:text-8xl uppercase leading-none tracking-tighter text-black mb-6 drop-shadow-[4px_4px_0_#e2e2e2]">VIGNESHWAR J</h3>
-                    <p class="font-space text-lg md:text-xl font-medium leading-[1.618] text-black">
-                        I blur the lines between spatial geometry and brutalist digital engineering. Crafting subversive, motion-driven narratives that challenge traditional layouts. I don't just design interfaces; I construct architectural experiences where instinct dictates logic, and every frame tells a story of aggressive, unyielding creativity.
+            <!-- Single Column Text Layout -->
+            <div class="w-full flex flex-col justify-between p-12 md:p-24 pb-16">
+                <div class="relative z-20">
+                    <h3 class="font-ade text-[clamp(2.5rem,8vw,8rem)] leading-tight tracking-tighter uppercase text-black mb-12 whitespace-nowrap overflow-hidden text-ellipsis w-full py-2">VIGNESHWAR J</h3>
+                    <p class="font-space text-lg md:text-2xl font-medium leading-[1.618] text-black max-w-4xl">
+                        Bringing creativity back to the web — one frame at a time. I craft immersive web experiences, motion-driven animations, and cinematic edits that blur the line between code and art. Beyond the screen, I direct machinimas and produce short-form films that tell stories with weight. In 3D, I build and texture characters and environments in Blockbench, turning raw geometry into worlds worth inhabiting.
                     </p>
                 </div>
                 
                 <!-- Arsenal Infinite Native Logo Loop Array -->
-                <div class="mt-12 border-t-4 border-black pt-8 overflow-hidden group">
-                    <span class="font-label font-bold tracking-[0.3em] uppercase text-xs mb-6 block text-black">ARSENAL / TOOLKIT</span>
+                <div class="mt-24 border-t-8 border-black pt-12 overflow-hidden group">
+                    <span class="font-label font-black tracking-[0.3em] uppercase text-sm mb-12 block text-black">ARSENAL / TOOLKIT</span>
                     
                     <div class="w-full relative flex items-center">
                         <!-- Scroll track layer scaled safely up -->
@@ -199,66 +426,39 @@
                     </div>
                 </div>
             </div>
+            <!-- Contact Me Sticker (Bottom-Left, mirroring photo placement) -->
+            <button onclick="openContactModal()" class="absolute -bottom-10 -left-6 md:-bottom-14 md:-left-10 z-50 group/contact hover:-translate-y-2 transition-transform duration-300 bg-transparent border-0 cursor-pointer p-0">
+                <div class="bg-[var(--color-fuchsia-pop-500)] border-4 border-black shadow-[8px_8px_0_#000000] px-5 py-3 flex items-center gap-3 group-hover/contact:bg-black transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                    <span class="font-label font-black uppercase tracking-[0.15em] text-white text-sm">Contact Me</span>
+                </div>
+            </button>
         </div>
 
-        <div class="mb-12 border-b-4 border-black pb-4 flex justify-between items-end mt-[10vh]">
-            <h3 class="font-ade text-4xl md:text-6xl tracking-tighter uppercase leading-none">Selected Works</h3>
-            <span class="font-label tracking-widest uppercase text-sm">MY ARCHIVES</span>
+        <!-- Selected Works Header — separated from profile block above -->
+        <div class="mb-20 border-b-8 border-black pb-8 flex justify-between items-end mt-[20vh] max-w-[1400px] mx-auto">
+            <h3 class="font-ade text-6xl md:text-8xl tracking-tighter uppercase leading-none">Selected Works</h3>
+            <span class="font-label font-bold tracking-[0.3em] uppercase text-sm mb-2">MY ARCHIVES</span>
         </div>
     
         <!-- Brutalist Bento Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-6 md:gap-8 auto-rows-min max-w-[1400px] mx-auto">
+        <div class="max-w-[1400px] mx-auto">
             
             <!-- Main Feature Project - Video Embed -->
-            <div class="interactive-element md:col-span-2 md:row-span-2 group relative border-4 border-black bg-black shadow-[8px_8px_0px_#000000] hover:translate-y-[-4px] hover:shadow-[12px_12px_0px_#fe018d] transition-all duration-300 cursor-pointer overflow-hidden flex flex-col" onclick="toggleDescription(this)">
-                <div class="border-b-4 border-black p-3 bg-white flex justify-between items-center z-20">
-                    <span class="font-label uppercase font-black tracking-widest text-xs">StoneQuill Studios</span>
-                    <span class="material-symbols-outlined text-sm">arrow_outward</span>
+            <div class="interactive-element group relative border-4 border-black bg-black shadow-[16px_16px_0px_#000000] hover:translate-y-[-8px] hover:shadow-[24px_24px_0px_var(--fuchsia-pop)] transition-all duration-300 cursor-pointer overflow-hidden flex flex-col" onclick="toggleDescription(this)">
+                <div class="border-b-8 border-black p-6 bg-white flex justify-between items-center z-20">
+                    <span class="font-label uppercase font-black tracking-[0.2em] text-sm md:text-base">StoneQuill Studios</span>
+                    <span class="material-symbols-outlined text-xl">arrow_outward</span>
                 </div>
                 
-                <div class="relative w-full aspect-video md:aspect-auto md:flex-grow bg-[#000]">
+                <div class="relative w-full aspect-video bg-[#000]">
                     <!-- YouTube embed pointer-events-none to act as a background video that plays silently -->
-                    <iframe class="absolute top-0 left-0 w-full h-full md:min-h-[500px] pointer-events-none scale-105" src="https://www.youtube.com/embed/gdBZ6wkExi4?autoplay=1&mute=1&loop=1&playlist=gdBZ6wkExi4&controls=0&modestbranding=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <iframe class="absolute top-0 left-0 w-full h-full pointer-events-none scale-105" src="https://www.youtube.com/embed/gdBZ6wkExi4?autoplay=1&mute=1&loop=1&playlist=gdBZ6wkExi4&controls=0&modestbranding=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     
                     <!-- Description Overlay triggered by JS -->
-                    <div class="project-desc relative w-full h-full flex justify-center items-center opacity-0 transition-opacity duration-300 z-10 bg-[#fe018d]/95 p-8">
+                    <div class="project-desc relative w-full h-full flex justify-center items-center opacity-0 transition-opacity duration-300 z-10 creative-gradient-overlay p-8">
                         <p class="font-space font-medium text-white text-lg md:text-2xl max-w-2xl text-center leading-relaxed">
                             I worked with <strong class="font-black text-black bg-white px-2 py-1 uppercase">StoneQuill Studios</strong>, helping in animation and editing to finalize their intense visual identity. 
-                        </p>
-                    </div>
-                </div>
-            </div>
-    
-            <!-- Secondary Project 1 -->
-            <div class="interactive-element group relative border-4 border-black bg-white shadow-[8px_8px_0px_#000000] hover:translate-y-[-4px] hover:shadow-[12px_12px_0px_#fe018d] transition-all duration-300 cursor-pointer flex flex-col aspect-square md:aspect-auto" onclick="toggleDescription(this)">
-                <div class="border-b-4 border-black p-3 bg-white z-20">
-                    <span class="font-label uppercase font-black tracking-widest text-xs">Project_02</span>
-                </div>
-                <div class="relative flex-grow flex justify-center items-center p-8 overflow-hidden bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop')] bg-cover bg-center text-white">
-                    <div class="absolute inset-0 bg-black/40 mix-blend-multiply"></div>
-                    <h4 class="relative z-10 font-ade text-4xl md:text-5xl mix-blend-difference uppercase">Neon<br/>Void</h4>
-                    
-                    <!-- Description Overlay -->
-                    <div class="project-desc absolute inset-0 bg-[#000000]/95 border-4 border-[#fe018d] p-6 flex flex-col justify-center items-center opacity-0 transition-opacity duration-300 z-10">
-                        <p class="font-space font-medium text-[#fe018d] text-md text-center">
-                            Audio-visual synchronization for experimental web experiences. Form meets void.
-                        </p>
-                    </div>
-                </div>
-            </div>
-    
-            <!-- Secondary Project 2 -->
-            <div class="interactive-element group relative border-4 border-black bg-[#fe018d] shadow-[8px_8px_0px_#000000] hover:translate-y-[-4px] transition-all duration-300 cursor-pointer flex flex-col aspect-square md:aspect-auto" onclick="toggleDescription(this)">
-                <div class="border-b-4 border-black p-3 bg-black text-white flex justify-between items-center z-20">
-                    <span class="font-label uppercase font-black tracking-widest text-xs">Project_03</span>
-                </div>
-                <div class="relative flex-grow flex justify-center items-center p-8 overflow-hidden">
-                    <h4 class="relative z-10 font-label tracking-[0.4em] text-black text-xl text-center uppercase border-4 border-black p-4 font-black bg-white/50 backdrop-blur-sm shadow-[4px_4px_0_#000]">Archive</h4>
-                    
-                    <!-- Description Overlay -->
-                    <div class="project-desc absolute inset-0 bg-white p-6 flex flex-col justify-center items-center opacity-0 transition-opacity duration-300 z-10 border-8 border-black">
-                        <p class="font-space font-black text-black text-lg text-center uppercase">
-                            Brutalist Typography & Architectural Layouts. Raw semantics.
                         </p>
                     </div>
                 </div>
@@ -307,6 +507,8 @@
         }
 
         window.addEventListener('load', () => {
+            document.body.classList.remove('not-loaded');
+            
             const fontsToUse = ['Ade Display', 'Meylda', 'Sharpie'];
             // Mathematics guaranteed random split: shuffle offline fonts
             fontsToUse.sort(() => Math.random() - 0.5);
@@ -318,6 +520,149 @@
                 setTimeout(() => decryptor.start(), 300);
             });
         });
+
+        // Parallax Effects
+        const parallaxVideo = document.getElementById('parallax-video');
+        const parallaxForeground = document.querySelectorAll('.parallax-foreground');
+        
+        window.addEventListener('mousemove', (e) => {
+            const clientX = e.clientX / window.innerWidth - 0.5;
+            const clientY = e.clientY / window.innerHeight - 0.5;
+
+            // Background Video Parallax (Subtle)
+            if(parallaxVideo) {
+                const bgX = clientX * 2; 
+                const bgY = clientY * 2;
+                parallaxVideo.style.transform = `translate(calc(-50% + ${bgX}%), calc(-50% + ${bgY}%))`;
+            }
+
+            // Foreground Text & Nav Parallax (Opposite & Stronger)
+            parallaxForeground.forEach(fg => {
+                const fgX = clientX * -20; 
+                const fgY = clientY * -20;
+                fg.style.transform = `translate(${fgX}px, ${fgY}px)`;
+            });
+        });
+
+        // Quarter-Circle HUD Logic with 3-second delay constraint
+        const hudNavWrapper = document.getElementById('hud-nav-wrapper');
+        const hudCircle = document.getElementById('hud-circle');
+        const hudIcon = document.getElementById('hud-icon');
+        const hudButtons = document.getElementById('hud-buttons');
+        
+        let hudHoverTimeout;
+
+        window.addEventListener('scroll', () => {
+             // Drops the trigger block into geometry perfectly when passing 40% vertical execution
+             if(window.scrollY > window.innerHeight * 0.4) {
+                  hudNavWrapper.classList.remove('translate-y-[150px]', 'opacity-0');
+                  hudNavWrapper.classList.add('translate-y-0', 'opacity-100');
+             } else {
+                  hudNavWrapper.classList.remove('translate-y-0', 'opacity-100');
+                  hudNavWrapper.classList.add('translate-y-[150px]', 'opacity-0');
+             }
+        }, { passive: true });
+
+        // Persona Menu Engine
+        const hudBg = document.getElementById('hud-bg');
+        const hudBgInner = document.getElementById('hud-bg-inner');
+
+        // The core trigger NEVER manually scales dimensions in Persona styling, it serves rigidly as an anchor 
+        hudCircle.addEventListener('mouseenter', () => {
+             clearTimeout(hudHoverTimeout);
+             
+             // Hard kinetic trigger animation
+             hudCircle.classList.add('shadow-[8px_8px_0_0_#de54bc]', 'bg-[var(--color-fuchsia-pop-500)]');
+             hudCircle.classList.remove('bg-white');
+             hudIcon.style.transform = 'scale(0) rotate(180deg)';
+             
+             // Splatter the chaotic star and buttons outwards
+             hudButtons.style.opacity = '1';
+             hudButtons.style.transform = 'scale(1)';
+             hudButtons.style.pointerEvents = 'auto';
+             
+             if(hudBg) {
+                hudBg.style.opacity = '1';
+                hudBg.style.transform = 'scale(1) rotate(5deg)';
+             }
+             if(hudBgInner) {
+                hudBgInner.style.opacity = '1';
+                hudBgInner.style.transform = 'scale(1) rotate(-8deg)';
+             }
+        });
+
+        hudCircle.addEventListener('mouseleave', () => {
+             hudHoverTimeout = setTimeout(() => {
+                 // Fast violent collapse shutting visually
+                 hudCircle.classList.remove('shadow-[8px_8px_0_0_#de54bc]', 'bg-[var(--color-fuchsia-pop-500)]');
+                 hudCircle.classList.add('bg-white');
+                 hudIcon.style.transform = 'scale(1) rotate(0deg)';
+                 
+                 hudButtons.style.opacity = '0';
+                 hudButtons.style.transform = 'scale(0)';
+                 hudButtons.style.pointerEvents = 'none';
+                 
+                 if(hudBg) {
+                    hudBg.style.opacity = '0';
+                    hudBg.style.transform = 'scale(0) rotate(0deg)';
+                 }
+                 if(hudBgInner) {
+                    hudBgInner.style.opacity = '0';
+                    hudBgInner.style.transform = 'scale(0) rotate(0deg)';
+                 }
+             }, 3000); 
+        });
+
+        // Welcome Text Bounded Logic & Crisp Resolution Overlap Protocol
+        const welcomeText = document.getElementById('welcome-text-container');
+        const welcomeWrapper = document.getElementById('welcome-parallax-wrapper');
+        
+        // Cache viewport height to completely destroy URL-bar layout shifting (the massive sudden dip downwards on mobile when scrolling upwards)
+        let cachedVh = window.innerHeight;
+        window.addEventListener('resize', () => { cachedVh = window.innerHeight; });
+
+        window.addEventListener('scroll', () => {
+             if(welcomeText && welcomeWrapper) {
+                 const currentScroll = Math.max(window.scrollY, 0); 
+                 const progress = currentScroll / cachedVh;
+                 
+                 // Execute standard bounded limit exactly maxing firmly at 3.14762 original track metrics
+                 const oldScaleTarget = 1.1 + (progress * 5);
+                 const boundedOldScale = Math.min(oldScaleTarget, 3.14762);
+                 
+                 // Seamless translation matrix mapping bounds into the high-res 21.5rem rendering canvas
+                 const highResScale = boundedOldScale / 3.14762;
+                 welcomeText.style.transform = `scale(${highResScale})`;
+                 
+                 // Plunge distance holds tracking identically to scroll ensuring visually fixed viewport bounds.
+                 // Execution naturally caps precisely at cachedVh * 0.36 anchoring perfectly above the bio boundary without over-plunging into the content.
+                 const dropDistance = Math.min(currentScroll, cachedVh * 0.36);
+                 welcomeWrapper.style.transform = `translateY(${dropDistance}px)`;
+             }
+        }, { passive: true });
+
+        // Scroll Tilt Animation Logic
+        const tiltObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('tilt-scrolled');
+                } else {
+                    // Only reset if user scrolled fully back above the hero — prevents jitter mid-scroll
+                    if (window.scrollY < 50) {
+                        entry.target.classList.remove('tilt-scrolled');
+                    }
+                }
+            });
+        }, {
+            // Fire when just 5% of the element is visible, with a 100px early trigger margin
+            threshold: 0.05,
+            rootMargin: '0px 0px -100px 0px'
+        });
+
+        // A tiny timeout ensures the initial render doesn't accidentally trigger the observer immediately if window loads at top
+        setTimeout(() => {
+            document.querySelectorAll('.scroll-tilt-element').forEach(el => tiltObserver.observe(el));
+        }, 500);
 
         // Brutalist Bento Grid Interaction
         function toggleDescription(element) {
@@ -342,6 +687,177 @@
             }
         }
 
+    </script>
+    <script>
+        // --- Web Audio SFX Engine (Cozy / Creative) ---
+        (function() {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            let isUnlocked = false;
+
+            const SFX = {
+                playHover: () => {
+                    if (audioCtx.state === 'suspended' || !isUnlocked) return;
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(440, audioCtx.currentTime); // A4
+                    gain.gain.setValueAtTime(0.0, audioCtx.currentTime);
+                    gain.gain.linearRampToValueAtTime(0.05, audioCtx.currentTime + 0.02);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+                    osc.connect(gain); gain.connect(audioCtx.destination);
+                    osc.start(); osc.stop(audioCtx.currentTime + 0.4);
+                },
+                playClick: () => {
+                    if (audioCtx.state === 'suspended') return;
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine'; // Marimba-like
+                    osc.frequency.setValueAtTime(330, audioCtx.currentTime); // E4
+                    gain.gain.setValueAtTime(0.0, audioCtx.currentTime);
+                    gain.gain.linearRampToValueAtTime(0.15, audioCtx.currentTime + 0.01);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+                    osc.connect(gain); gain.connect(audioCtx.destination);
+                    osc.start(); osc.stop(audioCtx.currentTime + 0.6);
+                },
+                playScroll: () => {
+                    if (audioCtx.state === 'suspended' || !isUnlocked) return;
+                    const bufferSize = audioCtx.sampleRate * 0.1; 
+                    const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+                    const data = buffer.getChannelData(0);
+                    for (let i = 0; i < bufferSize; i++) {
+                        data[i] = (Math.random() * 2 - 1) * 0.05; 
+                    }
+                    const noise = audioCtx.createBufferSource();
+                    noise.buffer = buffer;
+                    const filter = audioCtx.createBiquadFilter();
+                    filter.type = 'bandpass';
+                    filter.frequency.setValueAtTime(800 + Math.random()*400, audioCtx.currentTime);
+                    const gain = audioCtx.createGain();
+                    gain.gain.setValueAtTime(0.02, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+                    noise.connect(filter); filter.connect(gain); gain.connect(audioCtx.destination);
+                    noise.start();
+                }
+            };
+
+            const unlock = () => { if(!isUnlocked) { audioCtx.resume(); isUnlocked = true; } };
+            window.addEventListener('click', () => { unlock(); SFX.playClick(); });
+            window.addEventListener('keydown', unlock);
+
+            document.querySelectorAll('a, button, .cursor-pointer, .project-card, [class*="hover:-translate-y"]').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    // SAFETY: Prevent browser activity on mailto during hover
+                    if (el.tagName === 'A' && el.href && el.href.startsWith('mailto:')) return;
+                    SFX.playHover();
+                });
+            });
+
+            let lastScroll = 0;
+            window.addEventListener('scroll', () => {
+                const now = Date.now();
+                if(now - lastScroll > 150) { SFX.playScroll(); lastScroll = now; }
+            }, {passive: true});
+        })();
+    </script>
+
+    <!-- Contact Modal (Email Obfuscated — no raw mailto in HTML source) -->
+    <div id="contact-modal" class="fixed inset-0 z-[99998] flex items-center justify-center p-6 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div onclick="closeContactModal()" class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+        <div class="relative z-10 bg-white border-4 border-black p-10 max-w-md w-full shadow-[16px_16px_0px_#000000] transform scale-95 transition-transform duration-300" id="contact-panel-c">
+            <button onclick="closeContactModal()" class="absolute top-4 right-4 text-black/30 hover:text-black transition-colors text-xl font-black">✕</button>
+            <div class="flex flex-col gap-6">
+                <div>
+                    <div class="text-[10px] font-mono tracking-widest uppercase text-[var(--color-fuchsia-pop-500)] mb-2">Let's create something.</div>
+                    <h3 class="text-3xl font-black text-black tracking-tight uppercase" style="font-family: 'Ade Display', serif;">Contact Me.</h3>
+                </div>
+                <p class="text-black/60 text-sm leading-relaxed font-space">
+                    Drop a message for collabs, creative projects, animation work, or just to say hi.
+                </p>
+                <a id="c-contact-email-link" href="#" class="inline-flex items-center gap-3 bg-[var(--color-fuchsia-pop-500)] text-white font-black uppercase tracking-widest text-xs px-6 py-4 border-4 border-black shadow-[4px_4px_0_#000] transition-all hover:bg-black opacity-50 pointer-events-none select-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                    <span id="c-contact-email-text">Verifying…</span>
+                </a>
+                <div class="text-[10px] text-black/20 font-mono tracking-widest">// Human verification: 1s passive delay</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Contact Modal & Email Obfuscation (Creative) ---
+        const _ec = atob('anZpZ25lc2h3YXIud29ya0BnbWFpbC5jb20=');
+
+        function openContactModal() {
+            const modal = document.getElementById('contact-modal');
+            const panel = document.getElementById('contact-panel-c');
+            const link  = document.getElementById('c-contact-email-link');
+            const txt   = document.getElementById('c-contact-email-text');
+
+            link.classList.add('opacity-50', 'pointer-events-none');
+            txt.textContent = 'Verifying…';
+
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            panel.classList.remove('scale-95');
+            panel.classList.add('scale-100');
+
+            setTimeout(() => {
+                link.href = 'mailto:' + _ec;
+                txt.textContent = _ec;
+                link.classList.remove('opacity-50', 'pointer-events-none');
+            }, 800);
+        }
+
+        function closeContactModal() {
+            const modal = document.getElementById('contact-modal');
+            const panel = document.getElementById('contact-panel-c');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            panel.classList.remove('scale-100');
+            panel.classList.add('scale-95');
+        }
+
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeContactModal(); });
+    </script>
+
+    <!-- YouTube IFrame API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        // --- Music Player Engine (Creative) ---
+        let ytPlayer = null;
+        let musicPlaying = false;
+
+        function onYouTubeIframeAPIReady() {
+            ytPlayer = new YT.Player('yt-iframe-creative', {
+                height: '1', width: '1',
+                videoId: 'mzvHyQ0r51s',
+                playerVars: {
+                    autoplay: 0,
+                    loop: 1,
+                    playlist: 'mzvHyQ0r51s',
+                    controls: 0,
+                    disablekb: 1,
+                    fs: 0,
+                    iv_load_policy: 3,
+                    modestbranding: 1,
+                    rel: 0
+                }
+            });
+        }
+
+        function toggleMusic() {
+            if (!ytPlayer || typeof ytPlayer.playVideo !== 'function') return;
+            if (!musicPlaying) {
+                ytPlayer.playVideo();
+                musicPlaying = true;
+                document.getElementById('music-icon-off').style.display = 'none';
+                document.getElementById('music-icon-on').style.display = 'flex';
+                document.getElementById('music-toggle-creative').style.boxShadow = '0 0 20px rgba(214,41,171,0.9)';
+            } else {
+                ytPlayer.pauseVideo();
+                musicPlaying = false;
+                document.getElementById('music-icon-off').style.display = 'block';
+                document.getElementById('music-icon-on').style.display = 'none';
+                document.getElementById('music-toggle-creative').style.boxShadow = '0 4px 20px rgba(214,41,171,0.3)';
+            }
+        }
     </script>
 </body>
 

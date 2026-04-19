@@ -1,64 +1,1038 @@
 <!DOCTYPE html>
-<html class="dark" lang="en">
+<html lang="en">
 <head>
     <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>The Engineer | Technical</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="Vigneshwar J — Technical portfolio. Full-stack engineer, RAG systems, WebGL & interactive UI." />
+    <meta property="og:title" content="Vigneshwar J | Technical" />
+    <meta name="theme-color" content="#0a0a0c" />
+    <!-- Performance: DNS prefetch for all external origins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com" />
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+    <link rel="dns-prefetch" href="https://www.youtube.com" />
+    <title>Vigneshwar J | Technical</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;700;800;900&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-    <script src="tailwind-config.js"></script>
-    <link href="global.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;400;700;800&family=Press+Start+2P&display=swap" rel="stylesheet"/>
     <style>
-        /* Entry Animation: seamlessly continues the index.html sweep */
-        @keyframes page-arrive {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            background-color: #121212;
+            font-family: 'JetBrains Mono', monospace;
+            overflow-x: hidden;
         }
-        @keyframes push-up {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-15vh); }
+
+        #pixel-blast-container {
+            width: 100vw;
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 0;
+            z-index: 0;
+            border: none;
+            background-color: #050505;
+            cursor: crosshair;
         }
-        .hero-anchor {
-            /* Keep it centered initially, then push it up gracefully after 0.5s */
-            animation: push-up 1.5s cubic-bezier(0.85, 0, 0.15, 1) 0.5s forwards;
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
         }
-        .content-reveal {
-            opacity: 0;
-            animation: page-arrive 1.2s ease 1s forwards;
+        
+        .overlay-nav {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 10;
         }
     </style>
 </head>
-<body class="bg-[#000000] text-on-surface font-body overflow-x-hidden m-0 p-0">
-    <div class="hero-anchor h-[100vh] w-full flex flex-col justify-center items-center text-center px-12 md:px-24 pt-12 md:pt-24">
-        <div class="max-w-[42.36rem] flex flex-col items-center">
-            <span class="font-label tracking-[0.3em] uppercase text-xs mb-[1.618rem] block shiny-text-blue invisible">The Engineer</span>
-            <h2 class="font-headline text-[4.236rem] md:text-[6.854rem] font-black text-on-surface leading-[0.85] tracking-tighter" style="transform: scale(1.1);">
-                CODE &amp; <br/><span class="text-primary">CORE.</span>
-            </h2>
-            <p class="mt-[2.618rem] font-body text-[1.125rem] leading-[1.618] max-w-[38.2rem]">
-                <span class="shiny-text">Rigorous architecture meeting mathematical perfection. We build systems that endure the friction of reality.</span>
-            </p>
-            <div class="mt-[4.236rem] invisible">
-                <a class="flex items-center gap-4 group/btn inline-flex">
-                    <span class="w-12 h-12 rounded-sm border border-outline-variant flex items-center justify-center">
-                        <span class="material-symbols-outlined text-on-surface">settings</span>
-                    </span>
-                    <span class="font-label uppercase tracking-widest text-xs shiny-text-blue">Access Technical</span>
-                </a>
+<body>
+    <!-- Hidden YouTube Music Player -->
+    <div id="yt-player-tech" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;overflow:hidden;">
+        <div id="yt-iframe-tech"></div>
+    </div>
+
+    <!-- Music Toggle Button (Bottom Right) -->
+    <button id="music-toggle-tech" onclick="toggleMusic()" title="Toggle music"
+        style="position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;width:48px;height:48px;border-radius:50%;background:#B497CF;border:2px solid rgba(180,151,207,0.4);box-shadow:0 4px 20px rgba(180,151,207,0.3);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s ease;">
+        <!-- Static note icon (off state) -->
+        <svg id="music-icon-off" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        <!-- Animated bars (playing state) -->
+        <div id="music-icon-on" style="display:none;align-items:flex-end;gap:2px;height:20px;">
+            <span style="width:3px;background:#000;border-radius:2px;animation:bar1 0.8s ease infinite;"></span>
+            <span style="width:3px;background:#000;border-radius:2px;animation:bar2 0.8s ease infinite 0.15s;"></span>
+            <span style="width:3px;background:#000;border-radius:2px;animation:bar3 0.8s ease infinite 0.3s;"></span>
+            <span style="width:3px;background:#000;border-radius:2px;animation:bar2 0.8s ease infinite 0.45s;"></span>
+        </div>
+    </button>
+    <style>
+        @keyframes bar1 { 0%,100%{height:6px} 50%{height:18px} }
+        @keyframes bar2 { 0%,100%{height:12px} 50%{height:6px} }
+        @keyframes bar3 { 0%,100%{height:18px} 50%{height:10px} }
+    </style>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <!-- Vanilla CardNav Framework -->
+    <div class="card-nav-container fixed left-1/2 -translate-x-1/2 w-[90%] max-w-[800px] z-[99] top-[1.2em] md:top-[2em]">
+        <nav id="cardNav" class="block h-[60px] p-0 rounded-xl shadow-[0_8px_30px_rgb(180,151,207,0.15)] relative overflow-hidden will-change-[height] bg-[#0e0e11]/90 backdrop-blur-md transition-all duration-300 border border-[#B497CF]/20">
+            <div class="absolute inset-x-0 top-0 h-[60px] flex items-center justify-between p-2 pl-[1.1rem] z-[2]">
+                <!-- Hamburger Menu -->
+                <div id="cardNavHamburger" class="group h-full flex flex-col items-center justify-center cursor-pointer gap-[6px] order-2 md:order-none" style="color: #B497CF">
+                    <div class="hamburger-line w-[30px] h-[2px] bg-current transition-[transform,opacity,margin] duration-300 ease-linear [transform-origin:50%_50%] group-hover:opacity-75"></div>
+                    <div class="hamburger-line w-[30px] h-[2px] bg-current transition-[transform,opacity,margin] duration-300 ease-linear [transform-origin:50%_50%] group-hover:opacity-75"></div>
+                </div>
+                
+                <!-- Logo Space -->
+                <div class="logo-container flex items-center md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 order-1 md:order-none">
+                </div>
+                
+                <!-- CTA -->
+                <button onclick="openContactModal()" class="hidden md:inline-flex border-0 rounded-[calc(0.75rem-0.2rem)] px-4 items-center h-full font-bold cursor-pointer transition-colors duration-300 hover:bg-white" style="background-color: #B497CF; color: #000;">
+                    Contact me!
+                </button>
+            </div>
+
+            <!-- Expandable Cards -->
+            <div id="cardNavContent" class="absolute left-0 right-0 top-[60px] bottom-0 p-2 flex flex-col items-stretch gap-2 justify-start z-[1] invisible pointer-events-none md:flex-row md:items-end md:gap-[12px]">
+                
+                <div class="nav-card select-none relative flex flex-col gap-2 p-[12px_16px] rounded-[calc(0.75rem-0.2rem)] min-w-0 flex-[1_1_auto] h-auto min-h-[60px] md:h-full md:min-h-0 md:flex-[1_1_0%]" style="background-color: #1a1a24; color: #fff; transform: translateY(50px); opacity: 0; border: 1px solid rgba(180,151,207,0.1);">
+                    <div class="font-normal tracking-[-0.5px] text-[18px] md:text-[22px] text-[#B497CF]">Navigation</div>
+                    <div class="mt-auto flex flex-col gap-[2px]">
+                        <a href="index.html" class="inline-flex items-center gap-[6px] no-underline cursor-pointer transition-opacity duration-300 hover:text-[#B497CF] text-[15px] md:text-[16px]">> Home</a>
+                        <a href="creative.html" class="inline-flex items-center gap-[6px] no-underline cursor-pointer transition-opacity duration-300 hover:text-[#B497CF] text-[15px] md:text-[16px]">> Creative</a>
+                    </div>
+                </div>
+                
+                <div class="nav-card select-none relative flex flex-col gap-2 p-[12px_16px] rounded-[calc(0.75rem-0.2rem)] min-w-0 flex-[1_1_auto] h-auto min-h-[60px] md:h-full md:min-h-0 md:flex-[1_1_0%]" style="background-color: #2F293A; color: #fff; transform: translateY(50px); opacity: 0; border: 1px solid rgba(180,151,207,0.2);">
+                    <div class="font-normal tracking-[-0.5px] text-[18px] md:text-[22px] text-[#B497CF]">About Me</div>
+                    <div class="mt-auto flex flex-col gap-[4px]">
+                        <a href="#" class="inline-flex items-center gap-[6px] no-underline cursor-pointer transition-opacity duration-300 hover:text-[#B497CF] text-[15px] md:text-[16px]">Bio</a>
+                        <a href="#tech-stack" class="inline-flex items-center gap-[6px] no-underline cursor-pointer transition-opacity duration-300 hover:text-[#B497CF] text-[15px] md:text-[16px]">
+                            Coding Languages
+                            <!-- Logo Placeholders for future mapping -->
+                            <div class="flex gap-2 ml-2 opacity-50">
+                                <div class="w-4 h-4 bg-white/20 rounded-sm"></div>
+                                <div class="w-4 h-4 bg-white/20 rounded-sm"></div>
+                            </div>
+                        </a>
+                        <a href="#projects-showcase" class="inline-flex items-center gap-[6px] no-underline cursor-pointer transition-opacity duration-300 hover:text-[#B497CF] text-[15px] md:text-[16px]">Projects</a>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+    </div>
+
+    <!-- Graphic Design Anime-Inspired Layout Structure -->
+    <div class="relative min-h-[100vh] pt-[120px] pb-[80px] px-8 md:px-16 flex items-center justify-center z-[15] pointer-events-none overflow-hidden xl:overflow-visible">
+        
+        <!-- Massive Faded Background Typography -->
+        <div class="absolute inset-0 flex items-center justify-center select-none z-[-1] opacity-[0.03]">
+            <h1 class="text-[clamp(10rem,25vw,30rem)] font-black text-transparent stroke-white whitespace-nowrap tracking-tighter" style="-webkit-text-stroke: 4px #B497CF;">SYSTEM</h1>
+        </div>
+
+        <!-- Left Vertical Aesthetic Lines -->
+        <div class="absolute left-4 md:left-8 top-0 bottom-0 flex gap-1 z-0 opacity-20">
+            <div class="w-2 h-full bg-[#B497CF]"></div>
+            <div class="w-1 h-full bg-[#B497CF]"></div>
+            <div class="w-px h-full bg-[#B497CF] ml-2"></div>
+        </div>
+
+
+
+        <!-- Central Container -->
+        <div class="relative w-full max-w-[1200px] flex flex-col md:flex-row items-center justify-between gap-12 z-10 pointer-events-auto">
+            
+            <!-- Left Typographic Lockup (Welcome Honkai Star Rail style) -->
+            <div class="flex flex-col items-start max-w-xl">
+                <h2 class="text-6xl md:text-[8rem] font-bold leading-[0.8] tracking-tighter text-white uppercase drop-shadow-[0_0_15px_rgba(180,151,207,0.5)]">
+                    HI!<br><span class="text-[#B497CF] text-[3.5rem] md:text-[6rem]">I'm Vigneshwar</span>
+                </h2>
+            </div>
+
+            <!-- Right Tilted Frame (Instagram/Polaroid layout from reference) -->
+            <div class="relative group mt-16 md:mt-0">
+                
+                <!-- Floating Halftone/Dot Pattern behind -->
+                <div class="absolute -top-12 -left-12 w-32 h-32 bg-[radial-gradient(circle,_#B497CF_2px,_transparent_2.5px)] [background-size:12px_12px] opacity-30 z-0"></div>
+
+                <!-- Main Polaroid Frame -->
+                <div class="relative w-[340px] md:w-[420px] bg-[#f8f8fb] rounded-[1.5rem] p-4 pb-6 shadow-[0_20px_50px_rgba(0,0,0,0.8)] rotate-[-4deg] group-hover:rotate-0 transition-transform duration-500 z-10 border-4 border-[#0e0e11]">
+                    
+                    <!-- Top Bar -->
+                    <div class="flex items-center gap-3 mb-4 px-2">
+                        <div class="w-10 h-10 rounded-[10px] overflow-hidden border border-black/10">
+                            <img src="webpElements/profile.webp" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <span class="text-black font-bold text-sm tracking-tight">Vigneshwar J</span>
+                        </div>
+                        <div class="ml-auto text-black/40 font-black cursor-pointer hover:text-[#B497CF] p-2">⋮</div>
+                    </div>
+
+                    <!-- Main Image Inner Viewport (Rounded Square) -->
+                    <div class="w-full aspect-square rounded-[1rem] bg-[#1a1a24] overflow-hidden relative shadow-[inset_0_4px_15px_rgba(0,0,0,0.5)]">
+                        <img src="webpElements/profile.webp" class="w-full h-full object-cover object-top filter grayscale contrast-125 hover:grayscale-0 hover:scale-105 transition-all duration-700">
+                    </div>
+
+                    <!-- Bottom Interaction Bar -->
+                    <div class="flex gap-4 mt-5 px-3 text-black">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="hover:fill-black cursor-pointer transition-colors"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="hover:fill-black cursor-pointer transition-colors"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="hover:stroke-[#B497CF] cursor-pointer transition-colors"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="ml-auto hover:fill-black cursor-pointer transition-colors"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                    </div>
+                </div>
+
+                <!-- Floating Callout Badge 1 (Pointer line + square) -->
+                <div class="absolute -left-6 md:-left-16 bottom-[30%] bg-white rounded-[1rem] p-2 flex gap-3 shadow-[0_10px_20px_rgba(0,0,0,0.5)] border-2 border-[#1a1a24] z-20 group/badge cursor-pointer hover:border-[#B497CF] transition-colors">
+                    <div class="w-10 h-10 rounded-[8px] overflow-hidden">
+                        <img src="webpElements/profile.webp" class="w-full h-full object-cover grayscale brightness-200 contrast-200 mix-blend-multiply">
+                    </div>
+                    <div class="flex flex-col justify-center pr-4">
+                        <span class="text-black font-black text-xs leading-none whitespace-nowrap">Hello there</span>
+                    </div>
+                    <!-- The pointer line connecting to the main frame -->
+                    <div class="absolute left-[100%] top-1/2 -translate-y-1/2 w-8 h-1 bg-white border-y-2 border-[#1a1a24] group-hover/badge:border-[#B497CF]"></div>
+                    <div class="absolute left-[100%] ml-8 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-white border-2 border-[#1a1a24] group-hover/badge:border-[#B497CF]"></div>
+                </div>
+
+                <!-- Floating Callout Badge 2 -->
+                <div class="absolute -right-8 top-[20%] bg-[#B497CF] rounded-[1rem] p-2 shadow-[0_10px_20px_rgba(180,151,207,0.4)] border-2 border-[#1a1a24] z-20 hover:scale-105 transition-transform cursor-pointer">
+                    <div class="px-4 py-2 font-black text-[#0e0e11] uppercase tracking-widest text-xs flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                        Like
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Tech Stack Container -->
+    <div id="tech-stack" class="relative z-20 w-full px-4 md:px-12 py-32 flex flex-col items-center overflow-hidden bg-[#0A0A0C]">
+        
+        <!-- Native Vanilla Canvas DotField -->
+        <canvas id="dot-field-canvas" class="absolute inset-0 w-full h-full z-0"></canvas>
+        <svg id="dot-field-svg" class="absolute inset-0 w-full h-full pointer-events-none z-0">
+            <defs>
+                <radialGradient id="dot-field-glow-gradient">
+                    <stop offset="0%" stop-color="#120F17" />
+                    <stop offset="100%" stop-color="transparent" />
+                </radialGradient>
+            </defs>
+            <circle id="dot-field-glow" cx="-9999" cy="-9999" r="160" fill="url(#dot-field-glow-gradient)" style="opacity: 0; will-change: opacity;" />
+        </svg>
+
+        <h3 class="text-4xl md:text-5xl lg:text-7xl text-white tracking-tighter mb-16 relative z-10 select-none drop-shadow-[0_0_15px_rgba(180,151,207,0.5)]" style="font-family: serif;">
+            TECH STACK
+        </h3>
+
+        <!-- Content Grid spanning full logical width without constraints -->
+        <div class="w-full max-w-[1400px] grid grid-cols-1 md:grid-cols-2 gap-16 relative z-10 mt-8">
+            
+            <!-- Languages Column -->
+            <div class="w-full flex flex-col gap-6">
+                <div class="flex items-center gap-4">
+                    <div class="h-px bg-[#B497CF]/50 flex-1"></div>
+                    <h4 class="text-sm md:text-base text-[#B497CF] tracking-widest font-bold uppercase font-space">LANGUAGES</h4>
+                    <div class="h-px bg-[#B497CF]/50 flex-1"></div>
+                </div>
+                <div class="flex flex-wrap justify-center gap-3">
+                    <div class="bg-[#1a1a24]/80 backdrop-blur-md border border-white/10 rounded-full px-6 py-2.5 font-medium text-white/90 hover:border-[#B497CF]/80 hover:bg-[#B497CF]/10 hover:text-white transition-all cursor-pointer font-space shadow-[0_4px_20px_rgba(0,0,0,0.5)] hover:-translate-y-1">JavaScript</div>
+                    <div class="bg-[#1a1a24]/80 backdrop-blur-md border border-white/10 rounded-full px-6 py-2.5 font-medium text-white/90 hover:border-[#B497CF]/80 hover:bg-[#B497CF]/10 hover:text-white transition-all cursor-pointer font-space shadow-[0_4px_20px_rgba(0,0,0,0.5)] hover:-translate-y-1">TypeScript</div>
+                    <div class="bg-[#1a1a24]/80 backdrop-blur-md border border-white/10 rounded-full px-6 py-2.5 font-medium text-white/90 hover:border-[#B497CF]/80 hover:bg-[#B497CF]/10 hover:text-white transition-all cursor-pointer font-space shadow-[0_4px_20px_rgba(0,0,0,0.5)] hover:-translate-y-1">Python</div>
+                    <div class="bg-[#1a1a24]/80 backdrop-blur-md border border-white/10 rounded-full px-6 py-2.5 font-medium text-white/90 hover:border-[#B497CF]/80 hover:bg-[#B497CF]/10 hover:text-white transition-all cursor-pointer font-space shadow-[0_4px_20px_rgba(0,0,0,0.5)] hover:-translate-y-1">HTML/CSS</div>
+                    <div class="bg-[#1a1a24]/80 backdrop-blur-md border border-white/10 rounded-full px-6 py-2.5 font-medium text-white/90 hover:border-[#B497CF]/80 hover:bg-[#B497CF]/10 hover:text-white transition-all cursor-pointer font-space shadow-[0_4px_20px_rgba(0,0,0,0.5)] hover:-translate-y-1">C#</div>
+                    <div class="bg-[#1a1a24]/80 backdrop-blur-md border border-white/10 rounded-full px-6 py-2.5 font-medium text-white/90 hover:border-[#B497CF]/80 hover:bg-[#B497CF]/10 hover:text-white transition-all cursor-pointer font-space shadow-[0_4px_20px_rgba(0,0,0,0.5)] hover:-translate-y-1">SCILAB</div>
+                    <div class="bg-[#1a1a24]/80 backdrop-blur-md border border-white/10 rounded-full px-6 py-2.5 font-medium text-white/90 hover:border-[#B497CF]/80 hover:bg-[#B497CF]/10 hover:text-white transition-all cursor-pointer font-space shadow-[0_4px_20px_rgba(0,0,0,0.5)] hover:-translate-y-1">SQL</div>
+                </div>
+            </div>
+
+            <!-- Frameworks Column -->
+            <div class="w-full flex flex-col gap-6">
+                <div class="flex items-center gap-4">
+                    <div class="h-px bg-[#B497CF]/50 flex-1"></div>
+                    <h4 class="text-sm md:text-base text-[#B497CF] tracking-widest font-bold uppercase font-space">FRAMEWORKS</h4>
+                    <div class="h-px bg-[#B497CF]/50 flex-1"></div>
+                </div>
+                <div class="flex flex-wrap justify-center gap-3">
+                    <div class="bg-[#1a1a24]/80 backdrop-blur-md border border-white/10 rounded-full px-6 py-2.5 font-medium text-white/90 hover:border-[#B497CF]/80 hover:bg-[#B497CF]/10 hover:text-white transition-all cursor-pointer font-space shadow-[0_4px_20px_rgba(0,0,0,0.5)] hover:-translate-y-1">React</div>
+                    <div class="bg-[#1a1a24]/80 backdrop-blur-md border border-white/10 rounded-full px-6 py-2.5 font-medium text-white/90 hover:border-[#B497CF]/80 hover:bg-[#B497CF]/10 hover:text-white transition-all cursor-pointer font-space shadow-[0_4px_20px_rgba(0,0,0,0.5)] hover:-translate-y-1">Next.js</div>
+                    <div class="bg-[#1a1a24]/80 backdrop-blur-md border border-white/10 rounded-full px-6 py-2.5 font-medium text-white/90 hover:border-[#B497CF]/80 hover:bg-[#B497CF]/10 hover:text-white transition-all cursor-pointer font-space shadow-[0_4px_20px_rgba(0,0,0,0.5)] hover:-translate-y-1">Three.js</div>
+                    <div class="bg-[#1a1a24]/80 backdrop-blur-md border border-white/10 rounded-full px-6 py-2.5 font-medium text-white/90 hover:border-[#B497CF]/80 hover:bg-[#B497CF]/10 hover:text-white transition-all cursor-pointer font-space shadow-[0_4px_20px_rgba(0,0,0,0.5)] hover:-translate-y-1">Tailwind</div>
+                    <div class="bg-[#1a1a24]/80 backdrop-blur-md border border-white/10 rounded-full px-6 py-2.5 font-medium text-white/90 hover:border-[#B497CF]/80 hover:bg-[#B497CF]/10 hover:text-white transition-all cursor-pointer font-space shadow-[0_4px_20px_rgba(0,0,0,0.5)] hover:-translate-y-1">Node.js</div>
+                    <div class="bg-[#1a1a24]/80 backdrop-blur-md border border-white/10 rounded-full px-6 py-2.5 font-medium text-white/90 hover:border-[#B497CF]/80 hover:bg-[#B497CF]/10 hover:text-white transition-all cursor-pointer font-space shadow-[0_4px_20px_rgba(0,0,0,0.5)] hover:-translate-y-1">Transformers</div>
+                    <div class="bg-[#1a1a24]/80 backdrop-blur-md border border-white/10 rounded-full px-6 py-2.5 font-medium text-white/90 hover:border-[#B497CF]/80 hover:bg-[#B497CF]/10 hover:text-white transition-all cursor-pointer font-space shadow-[0_4px_20px_rgba(0,0,0,0.5)] hover:-translate-y-1">LangChain</div>
+                    <div class="bg-[#1a1a24]/80 backdrop-blur-md border border-white/10 rounded-full px-6 py-2.5 font-medium text-white/90 hover:border-[#B497CF]/80 hover:bg-[#B497CF]/10 hover:text-white transition-all cursor-pointer font-space shadow-[0_4px_20px_rgba(0,0,0,0.5)] hover:-translate-y-1">LlamaIndex</div>
+                    <div class="bg-[#1a1a24]/80 backdrop-blur-md border border-white/10 rounded-full px-6 py-2.5 font-medium text-white/90 hover:border-[#B497CF]/80 hover:bg-[#B497CF]/10 hover:text-white transition-all cursor-pointer font-space shadow-[0_4px_20px_rgba(0,0,0,0.5)] hover:-translate-y-1">PyTorch</div>
+                </div>
             </div>
         </div>
     </div>
-    
-    <div class="content-reveal min-h-screen px-12 md:px-24 max-w-7xl mx-auto pb-32">
-        <h3 class="font-headline text-3xl font-bold shiny-text-blue mb-8">Technical Infrastructure</h3>
-        <p class="text-on-surface-variant max-w-2xl leading-relaxed">
-            Welcome to the engineering module. Here we document our distributed systems, rendering pipelines, and rigorous performance optimizations.
-        </p>
-        <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="h-64 border border-outline-variant bg-[#0e0e11] rounded-lg"></div>
-            <div class="h-64 border border-outline-variant bg-[#0e0e11] rounded-lg"></div>
+
+    <!-- Projects Section -->
+    <div id="projects-showcase" class="relative min-h-[100vh] w-full max-w-[1200px] mx-auto z-20 px-4 md:px-8 py-24 pointer-events-auto flex flex-col items-center">
+        <div class="w-full mb-16 flex items-center gap-6">
+            <h3 class="text-4xl md:text-6xl font-bold tracking-tighter text-white uppercase drop-shadow-[0_0_15px_rgba(180,151,207,0.5)]">Projects</h3>
+            <div class="h-px bg-[#B497CF] flex-1 opacity-50"></div>
+        </div>
+        
+        <div class="w-full flex justify-center pb-[20vh]">
+            <!-- LexLegal Project Card -->
+            <div class="group relative bg-[#0e0e11]/80 backdrop-blur-md border border-[#B497CF]/20 rounded-[20px] p-8 hover:border-[#B497CF]/80 transition-all duration-500 cursor-pointer shadow-[0_10px_30px_rgba(0,0,0,0.5)] w-full max-w-[600px] hover:shadow-[0_20px_60px_rgba(180,151,207,0.15)]">
+                <div class="w-full aspect-video bg-[#1a1a24] rounded-lg mb-8 overflow-hidden flex justify-center items-center">
+                    <div class="flex flex-col items-center gap-3 text-[#B497CF]/40 group-hover:text-[#B497CF]/80 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m16 16 2 2 4-4"/><path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14"/><path d="m7.5 4.27 9 5.15"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" x2="12" y1="22" y2="12"/></svg>
+                        <span class="font-mono text-xs tracking-widest uppercase">In Development</span>
+                    </div>
+                </div>
+                <div class="flex items-start justify-between mb-4">
+                    <h4 class="text-white text-2xl font-bold tracking-tight">LexLegal</h4>
+                    <span class="text-[10px] font-mono uppercase tracking-widest text-[#B497CF] bg-[#B497CF]/10 border border-[#B497CF]/30 px-3 py-1 rounded-full">RAG · Active</span>
+                </div>
+                <p class="text-white/50 text-sm font-space leading-relaxed">
+                    A RAG model currently in development, purpose-built to address and resolve legal issues. Designed to bridge the gap between complex legal language and accessible, actionable answers.
+                </p>
+            </div>
         </div>
     </div>
+
+    <!-- The Component Container specified in your prompt -->
+    <div id="pixel-blast-container"></div>
+
+    <!-- Massive 3-Column Brutalist Footer -->
+    <footer class="relative w-full bg-[#0a0a0c] border-t border-[#B497CF]/20 pt-24 pb-12 px-8 md:px-16 z-20 font-space shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
+        <div class="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8">
+            
+            <!-- Left Column: Branding & Tagline -->
+            <div class="md:col-span-6 flex flex-col items-start text-white">
+                <h2 class="text-4xl md:text-5xl lg:text-7xl font-light tracking-tighter mb-12 text-white/90" style="font-family: serif;">
+                    BUILDING SOMETHING?
+                </h2>
+                
+                <button onclick="openContactModal()" class="inline-flex items-center gap-4 bg-[#B497CF] hover:bg-white text-black font-bold uppercase tracking-widest text-xs px-6 py-4 rounded-sm transition-colors cursor-pointer mb-24 shadow-[4px_4px_0_0_rgba(180,151,207,0.2)]">
+                    LET'S TALK! <span class="bg-black text-[#B497CF] w-6 h-6 flex items-center justify-center rounded-sm">></span>
+                </button>
+
+
+                <div class="text-white/30 text-[10px] tracking-widest font-mono uppercase">
+                    &copy; 2026 Vigneshwar J. All rights reserved.
+                </div>
+            </div>
+
+            <!-- Middle Column: Navigation Map -->
+            <div class="md:col-span-3 flex flex-col gap-6 text-white/80 md:pl-16">
+                <a href="index.html" class="text-2xl lg:text-3xl font-light tracking-tight hover:text-[#B497CF] transition-colors flex items-center gap-3">
+                    <div class="w-3 h-3 rounded-full bg-[#B497CF] shadow-[0_0_10px_#B497CF]"></div> HOME
+                </a>
+                <a href="#tech-stack" class="text-2xl lg:text-3xl font-light tracking-tight hover:text-[#B497CF] transition-colors uppercase">Tech Stack</a>
+                <a href="#" class="text-2xl lg:text-3xl font-light tracking-tight hover:text-[#B497CF] transition-colors uppercase">Methodology</a>
+                <a href="#projects-showcase" class="text-2xl lg:text-3xl font-light tracking-tight hover:text-[#B497CF] transition-colors uppercase">Projects</a>
+                <a href="creative.html" class="text-2xl lg:text-3xl font-light tracking-tight hover:text-[#B497CF] transition-colors uppercase">Creative Port</a>
+                <button onclick="openContactModal()" class="text-2xl lg:text-3xl font-light tracking-tight hover:text-[#B497CF] transition-colors uppercase text-left cursor-pointer bg-transparent border-0 text-white/80">Contact</button>
+            </div>
+
+            <!-- Right Column: Contact Details Grid -->
+            <div class="md:col-span-3 flex flex-col gap-10 text-sm text-white/50 justify-start">
+                
+                <div class="flex flex-col gap-3">
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-[#B497CF]">NETWORK</span>
+                    <div class="flex gap-2">
+                        <a href="https://github.com/vigneshwar-creates" target="_blank" rel="noopener noreferrer" class="w-12 h-12 border border-white/20 hover:border-[#B497CF] flex items-center justify-center rounded-sm transition-colors text-white/80 hover:text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/vigneshwar-j/" target="_blank" rel="noopener noreferrer" class="w-12 h-12 border border-white/20 hover:border-[#B497CF] flex items-center justify-center rounded-sm transition-colors text-white/80 hover:text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
+    <script>
+        // --- High Performance Vanilla Implementation of PixelBlast React Component ---
+
+        // Config block equivalent to your props:
+        const config = {
+            variant: "square",
+            pixelSize: 4,
+            color: "#B497CF",
+            patternScale: 2,
+            patternDensity: 1,
+            pixelSizeJitter: 0,
+            enableRipples: true,
+            rippleSpeed: 0.4,
+            rippleThickness: 0.12,
+            rippleIntensityScale: 1.5,
+            edgeFade: 0.25,
+            transparent: true,
+            speed: 0.5
+        };
+
+        const SHAPE_MAP = { square: 0, circle: 1, triangle: 2, diamond: 3 };
+
+        const VERTEX_SRC = `
+            void main() {
+                gl_Position = vec4(position, 1.0);
+            }
+        `;
+        
+        const FRAGMENT_SRC = `
+            precision highp float;
+
+            uniform vec3  uColor;
+            uniform vec2  uResolution;
+            uniform float uTime;
+            uniform float uPixelSize;
+            uniform float uScale;
+            uniform float uDensity;
+            uniform float uPixelJitter;
+            uniform int   uEnableRipples;
+            uniform float uRippleSpeed;
+            uniform float uRippleThickness;
+            uniform float uRippleIntensity;
+            uniform float uEdgeFade;
+
+            uniform int   uShapeType;
+            const int SHAPE_SQUARE   = 0;
+            const int SHAPE_CIRCLE   = 1;
+            const int SHAPE_TRIANGLE = 2;
+            const int SHAPE_DIAMOND  = 3;
+
+            const int   MAX_CLICKS = 10;
+
+            uniform vec2  uClickPos[MAX_CLICKS];
+            uniform float uClickTimes[MAX_CLICKS];
+
+            out vec4 fragColor;
+
+            float Bayer2(vec2 a) {
+                a = floor(a);
+                return fract(a.x / 2. + a.y * a.y * .75);
+            }
+            #define Bayer4(a) (Bayer2(.5*(a))*0.25 + Bayer2(a))
+            #define Bayer8(a) (Bayer4(.5*(a))*0.25 + Bayer2(a))
+
+            #define FBM_OCTAVES     5
+            #define FBM_LACUNARITY  1.25
+            #define FBM_GAIN        1.0
+
+            float hash11(float n){ return fract(sin(n)*43758.5453); }
+
+            float vnoise(vec3 p){
+                vec3 ip = floor(p);
+                vec3 fp = fract(p);
+                float n000 = hash11(dot(ip + vec3(0.0,0.0,0.0), vec3(1.0,57.0,113.0)));
+                float n100 = hash11(dot(ip + vec3(1.0,0.0,0.0), vec3(1.0,57.0,113.0)));
+                float n010 = hash11(dot(ip + vec3(0.0,1.0,0.0), vec3(1.0,57.0,113.0)));
+                float n110 = hash11(dot(ip + vec3(1.0,1.0,0.0), vec3(1.0,57.0,113.0)));
+                float n001 = hash11(dot(ip + vec3(0.0,0.0,1.0), vec3(1.0,57.0,113.0)));
+                float n101 = hash11(dot(ip + vec3(1.0,0.0,1.0), vec3(1.0,57.0,113.0)));
+                float n011 = hash11(dot(ip + vec3(0.0,1.0,1.0), vec3(1.0,57.0,113.0)));
+                float n111 = hash11(dot(ip + vec3(1.0,1.0,1.0), vec3(1.0,57.0,113.0)));
+                vec3 w = fp*fp*fp*(fp*(fp*6.0-15.0)+10.0);
+                float x00 = mix(n000, n100, w.x);
+                float x10 = mix(n010, n110, w.x);
+                float x01 = mix(n001, n101, w.x);
+                float x11 = mix(n011, n111, w.x);
+                float y0  = mix(x00, x10, w.y);
+                float y1  = mix(x01, x11, w.y);
+                return mix(y0, y1, w.z) * 2.0 - 1.0;
+            }
+
+            float fbm2(vec2 uv, float t){
+                vec3 p = vec3(uv * uScale, t);
+                float amp = 1.0;
+                float freq = 1.0;
+                float sum = 1.0;
+                for (int i = 0; i < FBM_OCTAVES; ++i){
+                    sum  += amp * vnoise(p * freq);
+                    freq *= FBM_LACUNARITY;
+                    amp  *= FBM_GAIN;
+                }
+                return sum * 0.5 + 0.5;
+            }
+
+            float maskCircle(vec2 p, float cov){
+                float r = sqrt(cov) * .25;
+                float d = length(p - 0.5) - r;
+                float aa = 0.5 * fwidth(d);
+                return cov * (1.0 - smoothstep(-aa, aa, d * 2.0));
+            }
+
+            float maskTriangle(vec2 p, vec2 id, float cov){
+                bool flip = mod(id.x + id.y, 2.0) > 0.5;
+                if (flip) p.x = 1.0 - p.x;
+                float r = sqrt(cov);
+                float d  = p.y - r*(1.0 - p.x);
+                float aa = fwidth(d);
+                return cov * clamp(0.5 - d/aa, 0.0, 1.0);
+            }
+
+            float maskDiamond(vec2 p, float cov){
+                float r = sqrt(cov) * 0.564;
+                return step(abs(p.x - 0.49) + abs(p.y - 0.49), r);
+            }
+
+            void main(){
+                float pixelSize = uPixelSize;
+                vec2 fragCoord = gl_FragCoord.xy - uResolution * .5;
+                float aspectRatio = uResolution.x / uResolution.y;
+
+                vec2 pixelId = floor(fragCoord / pixelSize);
+                vec2 pixelUV = fract(fragCoord / pixelSize);
+
+                float cellPixelSize = 8.0 * pixelSize;
+                vec2 cellId = floor(fragCoord / cellPixelSize);
+                vec2 cellCoord = cellId * cellPixelSize;
+                vec2 uv = cellCoord / uResolution * vec2(aspectRatio, 1.0);
+
+                float base = fbm2(uv, uTime * 0.05);
+                base = base * 0.5 - 0.65;
+
+                float feed = base + (uDensity - 0.5) * 0.3;
+
+                float speed     = uRippleSpeed;
+                float thickness = uRippleThickness;
+                const float dampT     = 1.0;
+                const float dampR     = 10.0;
+
+                if (uEnableRipples == 1) {
+                    for (int i = 0; i < MAX_CLICKS; ++i){
+                        vec2 pos = uClickPos[i];
+                        if (pos.x < 0.0) continue;
+                        float cellPixelSize = 8.0 * pixelSize;
+                        vec2 cuv = (((pos - uResolution * .5 - cellPixelSize * .5) / (uResolution))) * vec2(aspectRatio, 1.0);
+                        float t = max(uTime - uClickTimes[i], 0.0);
+                        float r = distance(uv, cuv);
+                        float waveR = speed * t;
+                        float ring  = exp(-pow((r - waveR) / thickness, 2.0));
+                        float atten = exp(-dampT * t) * exp(-dampR * r);
+                        feed = max(feed, ring * atten * uRippleIntensity);
+                    }
+                }
+
+                float bayer = Bayer8(fragCoord / uPixelSize) - 0.5;
+                float bw = step(0.5, feed + bayer);
+
+                float h = fract(sin(dot(floor(fragCoord / uPixelSize), vec2(127.1, 311.7))) * 43758.5453);
+                float jitterScale = 1.0 + (h - 0.5) * uPixelJitter;
+                float coverage = bw * jitterScale;
+                float M;
+                if      (uShapeType == SHAPE_CIRCLE)   M = maskCircle (pixelUV, coverage);
+                else if (uShapeType == SHAPE_TRIANGLE) M = maskTriangle(pixelUV, pixelId, coverage);
+                else if (uShapeType == SHAPE_DIAMOND)  M = maskDiamond(pixelUV, coverage);
+                else                                   M = coverage;
+
+                if (uEdgeFade > 0.0) {
+                    vec2 norm = gl_FragCoord.xy / uResolution;
+                    float edge = min(min(norm.x, norm.y), min(1.0 - norm.x, 1.0 - norm.y));
+                    float fade = smoothstep(0.0, uEdgeFade, edge);
+                    M *= fade;
+                }
+
+                vec3 color = uColor;
+
+                // sRGB gamma correction lookup exactly mimicking the React ThreeJS sRGB output conversion
+                vec3 srgbColor = mix(
+                    color * 12.92,
+                    1.055 * pow(color, vec3(1.0 / 2.4)) - 0.055,
+                    step(0.0031308, color)
+                );
+
+                fragColor = vec4(srgbColor, M);
+            }
+        `;
+
+        const container = document.getElementById('pixel-blast-container');
+        
+        // Use Three.js to render
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: "high-performance" });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+        container.appendChild(renderer.domElement);
+
+        if (config.transparent) {
+            renderer.setClearAlpha(0);
+        } else {
+            renderer.setClearColor(0x000000, 1);
+        }
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+        
+        const MAX_CLICKS = 10;
+        
+        const uniforms = {
+            uResolution: { value: new THREE.Vector2(0, 0) },
+            uTime: { value: 0 },
+            uColor: { value: new THREE.Color(config.color) },
+            uClickPos: { value: Array.from({ length: MAX_CLICKS }, () => new THREE.Vector2(-1, -1)) },
+            uClickTimes: { value: new Float32Array(MAX_CLICKS) },
+            uShapeType: { value: SHAPE_MAP[config.variant] || 0 },
+            uPixelSize: { value: config.pixelSize * renderer.getPixelRatio() },
+            uScale: { value: config.patternScale },
+            uDensity: { value: config.patternDensity },
+            uPixelJitter: { value: config.pixelSizeJitter },
+            uEnableRipples: { value: config.enableRipples ? 1 : 0 },
+            uRippleSpeed: { value: config.rippleSpeed },
+            uRippleThickness: { value: config.rippleThickness },
+            uRippleIntensity: { value: config.rippleIntensityScale },
+            uEdgeFade: { value: config.edgeFade }
+        };
+
+        const material = new THREE.ShaderMaterial({
+            vertexShader: VERTEX_SRC,
+            fragmentShader: FRAGMENT_SRC,
+            uniforms: uniforms,
+            transparent: true,
+            depthTest: false,
+            depthWrite: false,
+            glslVersion: THREE.GLSL3
+        });
+
+        const quadGeom = new THREE.PlaneGeometry(2, 2);
+        const quad = new THREE.Mesh(quadGeom, material);
+        scene.add(quad);
+
+        const clock = new THREE.Clock();
+        
+        function setSize() {
+            // Track height of the entire document to map WebGL along the scroll path seamlessly
+            const docHeight = Math.max(
+                document.body.scrollHeight, document.documentElement.scrollHeight,
+                document.body.offsetHeight, document.documentElement.offsetHeight
+            );
+            container.style.height = docHeight + "px";
+
+            const w = container.clientWidth || 1;
+            const h = container.clientHeight || 1;
+            renderer.setSize(w, h, false);
+            uniforms.uResolution.value.set(renderer.domElement.width, renderer.domElement.height);
+            uniforms.uPixelSize.value = config.pixelSize * renderer.getPixelRatio();
+        }
+
+        const ro = new ResizeObserver(setSize);
+        ro.observe(container);
+        setSize();
+
+        let clickIx = 0;
+
+        function mapToPixels(e) {
+            const rect = renderer.domElement.getBoundingClientRect();
+            const scaleX = renderer.domElement.width / rect.width;
+            const scaleY = renderer.domElement.height / rect.height;
+            const fx = (e.clientX - rect.left) * scaleX;
+            const fy = (rect.height - (e.clientY - rect.top)) * scaleY;
+            return { fx, fy };
+        }
+
+        container.addEventListener('pointerdown', (e) => {
+            const { fx, fy } = mapToPixels(e);
+            uniforms.uClickPos.value[clickIx].set(fx, fy);
+            uniforms.uClickTimes.value[clickIx] = uniforms.uTime.value;
+            clickIx = (clickIx + 1) % MAX_CLICKS;
+        }, { passive: true });
+
+        // Generate Time Offset
+        const timeOffset = Math.random() * 1000;
+
+        function animate() {
+            uniforms.uTime.value = timeOffset + clock.getElapsedTime() * config.speed;
+            renderer.render(scene, camera);
+            requestAnimationFrame(animate);
+        }
+
+        requestAnimationFrame(animate);
+
+        // --- CardNav Vanilla JS Port ---
+        const cardNav = document.getElementById('cardNav');
+        const cardNavHamburger = document.getElementById('cardNavHamburger');
+        const cardNavContent = document.getElementById('cardNavContent');
+        const navCards = document.querySelectorAll('.nav-card');
+        
+        let isNavOpen = false;
+        const navTl = gsap.timeline({ paused: true });
+
+        function calculateNavHeight() {
+            if (window.matchMedia('(max-width: 768px)').matches) {
+                const wasV = cardNavContent.style.visibility;
+                const wasP = cardNavContent.style.position;
+                cardNavContent.style.visibility = 'visible';
+                cardNavContent.style.position = 'static';
+                const h = cardNavContent.scrollHeight;
+                cardNavContent.style.visibility = wasV;
+                cardNavContent.style.position = wasP;
+                return 60 + h + 16;
+            }
+            return 260; // Fixed desktop height config
+        }
+
+        function buildNavTimeline() {
+            navTl.clear();
+            navTl.to(cardNav, { height: calculateNavHeight, duration: 0.4, ease: "power3.out" });
+            navTl.to(navCards, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out", stagger: 0.08 }, "-=0.1");
+        }
+
+        buildNavTimeline();
+
+        window.addEventListener('resize', () => { 
+            if(isNavOpen) { 
+                buildNavTimeline(); 
+                navTl.progress(1); 
+            } else { 
+                buildNavTimeline(); 
+            } 
+        });
+
+        cardNavHamburger.addEventListener('click', () => {
+            const lines = cardNavHamburger.querySelectorAll('.hamburger-line');
+            isNavOpen = !isNavOpen;
+            
+            if(isNavOpen) {
+                lines[0].classList.add('translate-y-[4px]', 'rotate-45');
+                lines[1].classList.add('-translate-y-[4px]', '-rotate-45');
+                cardNavContent.classList.replace('invisible', 'visible');
+                cardNavContent.classList.replace('pointer-events-none', 'pointer-events-auto');
+                navTl.play(0);
+            } else {
+                lines[0].classList.remove('translate-y-[4px]', 'rotate-45');
+                lines[1].classList.remove('-translate-y-[4px]', '-rotate-45');
+                navTl.reverse().then(() => {
+                    cardNavContent.classList.replace('visible', 'invisible');
+                    cardNavContent.classList.replace('pointer-events-auto', 'pointer-events-none');
+                });
+            }
+        });
+        // --- Vanilla DotField Implementation ---
+        (function() {
+            const canvas = document.getElementById('dot-field-canvas');
+            const glowEl = document.getElementById('dot-field-glow');
+            const techStack = document.getElementById('tech-stack');
+            if (!canvas || !techStack) return;
+            
+            const ctx = canvas.getContext('2d', { alpha: true });
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+            
+            const p = {
+                dotRadius: 1.5,
+                dotSpacing: 16,
+                cursorRadius: 300,
+                cursorForce: 0.1,
+                bulgeOnly: true,
+                bulgeStrength: 90,
+                sparkle: false,
+                waveAmplitude: 0,
+                gradientFrom: '#A855F7',
+                gradientTo: '#B497CF'
+            };
+
+            let dots = [];
+            const mouse = { x: -9999, y: -9999, prevX: -9999, prevY: -9999, speed: 0 };
+            let size = { w: 0, h: 0, offsetX: 0, offsetY: 0 };
+            let glowOpacity = 0;
+            let engagement = 0;
+            let frameCount = 0;
+            let rafId;
+
+            function doResize() {
+                const rect = techStack.getBoundingClientRect();
+                const w = rect.width;
+                const h = rect.height;
+
+                canvas.width = w * dpr;
+                canvas.height = h * dpr;
+                canvas.style.width = `${w}px`;
+                canvas.style.height = `${h}px`;
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+                size = {
+                    w, h,
+                    offsetX: rect.left + window.scrollX,
+                    offsetY: rect.top + window.scrollY,
+                };
+
+                buildDots(w, h);
+            }
+
+            function buildDots(w, h) {
+                const step = p.dotRadius + p.dotSpacing;
+                const cols = Math.floor(w / step);
+                const rows = Math.floor(h / step);
+                const padX = (w % step) / 2;
+                const padY = (h % step) / 2;
+                dots = new Array(rows * cols);
+                let idx = 0;
+
+                for (let row = 0; row < rows; row++) {
+                    for (let col = 0; col < cols; col++) {
+                        const ax = padX + col * step + step / 2;
+                        const ay = padY + row * step + step / 2;
+                        dots[idx++] = { ax, ay, sx: ax, sy: ay, vx: 0, vy: 0, x: ax, y: ay };
+                    }
+                }
+            }
+
+            techStack.addEventListener('mousemove', (e) => {
+                mouse.x = e.pageX - size.offsetX;
+                mouse.y = e.pageY - size.offsetY;
+            }, { passive: true });
+            
+            techStack.addEventListener('mouseleave', () => {
+                 mouse.x = -9999;
+                 mouse.y = -9999;
+            });
+
+            setInterval(() => {
+                const dx = mouse.prevX - mouse.x;
+                const dy = mouse.prevY - mouse.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                mouse.speed += (dist - mouse.speed) * 0.5;
+                if (mouse.speed < 0.001) mouse.speed = 0;
+                mouse.prevX = mouse.x;
+                mouse.prevY = mouse.y;
+            }, 20);
+
+            function tick() {
+                frameCount++;
+                const { w, h } = size;
+                const t = frameCount * 0.02;
+
+                const targetEngagement = Math.min(mouse.speed / 5, 1);
+                engagement += (targetEngagement - engagement) * 0.06;
+                if (engagement < 0.001) engagement = 0;
+                
+                glowOpacity += (engagement - glowOpacity) * 0.08;
+                if (glowEl) {
+                    glowEl.setAttribute('cx', String(mouse.x));
+                    glowEl.setAttribute('cy', String(mouse.y));
+                    glowEl.style.opacity = String(glowOpacity);
+                }
+
+                ctx.clearRect(0, 0, w, h);
+
+                const grad = ctx.createLinearGradient(0, 0, w, h);
+                grad.addColorStop(0, p.gradientFrom);
+                grad.addColorStop(1, p.gradientTo);
+                ctx.fillStyle = grad;
+
+                const crSq = p.cursorRadius * p.cursorRadius;
+                const rad = p.dotRadius / 2;
+
+                ctx.beginPath();
+                const len = dots.length;
+                for (let i = 0; i < len; i++) {
+                    const d = dots[i];
+                    const dx = mouse.x - d.ax;
+                    const dy = mouse.y - d.ay;
+                    const distSq = dx * dx + dy * dy;
+
+                    if (distSq < crSq && engagement > 0.01) {
+                        const dist = Math.sqrt(distSq);
+                        const push = (1 - dist / p.cursorRadius) ** 2 * p.bulgeStrength * engagement;
+                        const angle = Math.atan2(dy, dx);
+                        d.sx += (d.ax - Math.cos(angle) * push - d.sx) * 0.15;
+                        d.sy += (d.ay - Math.sin(angle) * push - d.sy) * 0.15;
+                    } else {
+                        d.sx += (d.ax - d.sx) * 0.1;
+                        d.sy += (d.ay - d.sy) * 0.1;
+                    }
+
+                    ctx.moveTo(d.sx + rad, d.sy);
+                    ctx.arc(d.sx, d.sy, rad, 0, Math.PI * 2);
+                }
+                ctx.fill();
+
+                rafId = requestAnimationFrame(tick);
+            }
+
+            window.addEventListener('resize', () => { setTimeout(doResize, 100); });
+            doResize();
+            tick();
+        })();
+    </script>
+    <script>
+        // --- Web Audio SFX Engine (Futuristic / Technical) ---
+        (function() {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            let isUnlocked = false;
+
+            const SFX = {
+                playHover: () => {
+                    if (audioCtx.state === 'suspended' || !isUnlocked) return;
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.05);
+                    gain.gain.setValueAtTime(0.02, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+                    osc.connect(gain); gain.connect(audioCtx.destination);
+                    osc.start(); osc.stop(audioCtx.currentTime + 0.1);
+                },
+                playClick: () => {
+                    if (audioCtx.state === 'suspended') return;
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(50, audioCtx.currentTime + 0.1);
+                    const filter = audioCtx.createBiquadFilter();
+                    filter.type = 'lowpass';
+                    filter.frequency.setValueAtTime(2000, audioCtx.currentTime);
+                    filter.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.1);
+                    gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+                    osc.connect(filter); filter.connect(gain); gain.connect(audioCtx.destination);
+                    osc.start(); osc.stop(audioCtx.currentTime + 0.15);
+                },
+                playScroll: () => {
+                    if (audioCtx.state === 'suspended' || !isUnlocked) return;
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(2000 + Math.random()*500, audioCtx.currentTime);
+                    gain.gain.setValueAtTime(0.003, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.03);
+                    osc.connect(gain); gain.connect(audioCtx.destination);
+                    osc.start(); osc.stop(audioCtx.currentTime + 0.05);
+                }
+            };
+
+            const unlock = () => { if(!isUnlocked) { audioCtx.resume(); isUnlocked = true; } };
+            window.addEventListener('click', () => { unlock(); SFX.playClick(); });
+            window.addEventListener('keydown', unlock);
+
+            document.querySelectorAll('a, button, [class*="cursor-pointer"], [class*="hover:-translate-y-1"]').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    // STRICT SAFETY: Never trigger SFX logic for mailto links to prevent browser popups
+                    if (el.tagName === 'A' && el.href && el.href.startsWith('mailto:')) return;
+                    SFX.playHover();
+                });
+            });
+
+            let lastScroll = 0;
+            window.addEventListener('scroll', () => {
+                const now = Date.now();
+                if(now - lastScroll > 80) { SFX.playScroll(); lastScroll = now; }
+            }, {passive: true});
+        })();
+    </script>
+
+    <!-- Contact Modal (Email Obfuscated — no raw mailto in HTML source) -->
+    <div id="contact-modal" class="fixed inset-0 z-[99998] flex items-center justify-center p-6 opacity-0 pointer-events-none transition-opacity duration-300">
+        <!-- Backdrop -->
+        <div id="contact-backdrop" onclick="closeContactModal()" class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+        <!-- Panel -->
+        <div class="relative z-10 bg-[#0e0e11] border border-[#B497CF]/40 rounded-[20px] p-10 max-w-md w-full shadow-[0_30px_80px_rgba(0,0,0,0.8)] transform scale-95 transition-transform duration-300" id="contact-panel">
+            <button onclick="closeContactModal()" class="absolute top-4 right-4 text-white/30 hover:text-white transition-colors text-xl font-bold">✕</button>
+            <div class="flex flex-col gap-6">
+                <div>
+                    <div class="text-[10px] font-mono tracking-widest uppercase text-[#B497CF] mb-2">Ready to ship something?</div>
+                    <h3 class="text-3xl font-bold text-white tracking-tight">Let's Talk.</h3>
+                </div>
+                <p class="text-white/50 text-sm leading-relaxed font-space">
+                    Drop a message and I'll get back to you. Best for project briefs, collaborations, and technical consultations.
+                </p>
+                <!-- Email revealed by JS — never in raw HTML -->
+                <a id="contact-email-link" href="#" class="inline-flex items-center gap-3 bg-[#B497CF] text-black font-bold uppercase tracking-widest text-xs px-6 py-4 rounded-sm transition-all hover:bg-white opacity-50 pointer-events-none select-none" style="transition: opacity 0.5s ease 0.8s;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                    <span id="contact-email-text">Verifying…</span>
+                </a>
+                <div class="text-[10px] text-white/20 font-mono tracking-widest">// Human verification: 1s passive delay</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Contact Modal & Email Obfuscation Engine ---
+        // Email is encoded as Base64 — zero raw mailto exposure in HTML source for scrapers
+        const _e = atob('anZpZ25lc2h3YXIud29ya0BnbWFpbC5jb20=');
+
+        function openContactModal() {
+            const modal = document.getElementById('contact-modal');
+            const panel = document.getElementById('contact-panel');
+            const link  = document.getElementById('contact-email-link');
+            const txt   = document.getElementById('contact-email-text');
+
+            // Reset state
+            link.classList.add('opacity-50', 'pointer-events-none');
+            txt.textContent = 'Verifying…';
+
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            panel.classList.remove('scale-95');
+            panel.classList.add('scale-100');
+
+            // Reveal email after 800ms — thwarts automated click-through bots
+            setTimeout(() => {
+                link.href = 'mailto:' + _e;
+                txt.textContent = _e;
+                link.classList.remove('opacity-50', 'pointer-events-none');
+            }, 800);
+        }
+
+        function closeContactModal() {
+            const modal = document.getElementById('contact-modal');
+            const panel = document.getElementById('contact-panel');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            panel.classList.remove('scale-100');
+            panel.classList.add('scale-95');
+        }
+
+        // Close on Escape key
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeContactModal(); });
+    </script>
+
+    <!-- YouTube IFrame API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        // --- Music Player Engine (Technical) ---
+        let ytPlayer = null;
+        let musicPlaying = false;
+
+        function onYouTubeIframeAPIReady() {
+            ytPlayer = new YT.Player('yt-iframe-tech', {
+                height: '1', width: '1',
+                videoId: 'hf871hDcP_Q',
+                playerVars: {
+                    autoplay: 0,
+                    loop: 1,
+                    playlist: 'hf871hDcP_Q',
+                    controls: 0,
+                    disablekb: 1,
+                    fs: 0,
+                    iv_load_policy: 3,
+                    modestbranding: 1,
+                    rel: 0
+                }
+            });
+        }
+
+        function toggleMusic() {
+            if (!ytPlayer || typeof ytPlayer.playVideo !== 'function') return;
+            if (!musicPlaying) {
+                ytPlayer.playVideo();
+                musicPlaying = true;
+                document.getElementById('music-icon-off').style.display = 'none';
+                document.getElementById('music-icon-on').style.display = 'flex';
+                document.getElementById('music-toggle-tech').style.boxShadow = '0 0 20px rgba(180,151,207,0.8)';
+            } else {
+                ytPlayer.pauseVideo();
+                musicPlaying = false;
+                document.getElementById('music-icon-off').style.display = 'block';
+                document.getElementById('music-icon-on').style.display = 'none';
+                document.getElementById('music-toggle-tech').style.boxShadow = '0 4px 20px rgba(180,151,207,0.3)';
+            }
+        }
+    </script>
 </body>
 </html>

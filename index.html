@@ -4,7 +4,15 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Synthetic Polymath | Creative vs Technical</title>
+    <meta name="description" content="Vigneshwar J — A dual-path portfolio spanning creative filmmaking & animation and technical engineering. Choose your journey." />
+    <meta property="og:title" content="Vigneshwar J | Portfolio" />
+    <meta property="og:description" content="Creative filmmaker, Blockbench modeller, and full-stack engineer. Two paths, one mind." />
+    <meta name="theme-color" content="#0e0e11" />
+    <!-- Performance: DNS prefetch for all external origins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com" />
+    <title>Vigneshwar J | Portfolio</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;700;800;900&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap"
@@ -234,6 +242,12 @@
             transition: opacity 0.3s ease !important;
         }
 
+        /* Second sequential fade out for the primary text after THE */
+        body.transitioning .pane.expanded h2 .fade-out-main {
+            opacity: 0 !important;
+            transition: opacity 0.5s ease 0.4s !important;
+        }
+
         body.transitioning .pane.expanded h2 {
             transform: scale(1.1) !important;
             transition: transform 1.5s cubic-bezier(0.2, 0, 0, 1) !important;
@@ -298,10 +312,97 @@
             -webkit-text-fill-color: transparent;
             animation: shine-sweep 4s ease-in-out infinite;
         }
+        /* ── Cinematic Loader ── */
+        #site-loader {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2.5rem;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #site-loader.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Scattered LOADING letters */
+        .loader-text {
+            display: flex;
+            gap: 0.35em;
+            letter-spacing: 0.35em;
+            font-family: 'Space Grotesk', monospace;
+            font-size: clamp(0.65rem, 1.5vw, 0.85rem);
+            font-weight: 500;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.8);
+        }
+        .loader-text span {
+            display: inline-block;
+            animation: loader-letter 2.4s ease-in-out infinite;
+            filter: blur(6px);
+            opacity: 0.1;
+        }
+        .loader-text span:nth-child(1)  { animation-delay: 0.0s; }
+        .loader-text span:nth-child(2)  { animation-delay: 0.15s;}
+        .loader-text span:nth-child(3)  { animation-delay: 0.30s;}
+        .loader-text span:nth-child(4)  { animation-delay: 0.45s;}
+        .loader-text span:nth-child(5)  { animation-delay: 0.60s;}
+        .loader-text span:nth-child(6)  { animation-delay: 0.75s;}
+        .loader-text span:nth-child(7)  { animation-delay: 0.90s;}
+        @keyframes loader-letter {
+            0%,100% { filter: blur(6px);  opacity: 0.08; transform: translateY(2px);  }
+            40%,60% { filter: blur(0px);  opacity: 1;    transform: translateY(0px);  }
+        }
+
+        /* Glowing slash marks */
+        .loader-slashes {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .loader-slashes span {
+            display: block;
+            width: 2px;
+            border-radius: 2px;
+            background: rgba(255,255,255,0.15);
+            transform: rotate(-20deg);
+            animation: slash-glow 1.8s ease-in-out infinite;
+        }
+        .loader-slashes span:nth-child(1)  { height:14px; animation-delay:0.0s;  }
+        .loader-slashes span:nth-child(2)  { height:18px; animation-delay:0.1s;  }
+        .loader-slashes span:nth-child(3)  { height:22px; animation-delay:0.2s;  }
+        .loader-slashes span:nth-child(4)  { height:28px; animation-delay:0.3s;  }
+        .loader-slashes span:nth-child(5)  { height:34px; animation-delay:0.4s;  }
+        .loader-slashes span:nth-child(6)  { height:40px; animation-delay:0.5s;  }
+        .loader-slashes span:nth-child(7)  { height:40px; animation-delay:0.6s;  }
+        .loader-slashes span:nth-child(8)  { height:34px; animation-delay:0.7s;  }
+        .loader-slashes span:nth-child(9)  { height:28px; animation-delay:0.8s;  }
+        .loader-slashes span:nth-child(10) { height:22px; animation-delay:0.9s;  }
+        .loader-slashes span:nth-child(11) { height:18px; animation-delay:1.0s;  }
+        .loader-slashes span:nth-child(12) { height:14px; animation-delay:1.1s;  }
+        @keyframes slash-glow {
+            0%,100% { background: rgba(255,255,255,0.1);  box-shadow: none; }
+            50%      { background: rgba(255,255,255,0.95); box-shadow: 0 0 12px 4px rgba(255,255,255,0.6), 0 0 30px 10px rgba(255,255,255,0.15); }
+        }
     </style>
 </head>
 
 <body class="bg-background text-on-surface font-body overflow-x-hidden">
+    <!-- Cinematic Loader Overlay -->
+    <div id="site-loader" aria-live="polite" aria-label="Loading portfolio">
+        <div class="loader-slashes">
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="loader-text">
+            <span>L</span><span>O</span><span>A</span><span>D</span><span>I</span><span>N</span><span>G</span>
+        </div>
+    </div>
     <div id="app-orientation-wrapper">
         <main class="split-container pt-0 relative">
             <!-- Creative Side -->
@@ -326,7 +427,7 @@
                     <div class="max-w-[42.36rem] flex flex-col items-center">
                         <h2
                             class="font-ade text-[4.236rem] md:text-[6.854rem] text-on-surface leading-[0.85] tracking-tighter group-hover:scale-[1.062] group-focus-within:scale-[1.062] transition-transform duration-[618ms]">
-                            <span class="fade-out-the inline-block transition-opacity duration-300">THE</span> <br /><span class="text-secondary">ARTIST.</span>
+                            <span class="fade-out-the inline-block transition-opacity duration-300">THE</span> <br /><span class="text-secondary fade-out-main inline-block transition-opacity duration-500">ARTIST.</span>
                         </h2>
                         <p
                             class="mt-[2.618rem] font-body text-[1.125rem] leading-[1.618] max-w-[38.2rem] opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-[618ms] delay-[382ms]">
@@ -367,7 +468,7 @@
                     <div class="max-w-[42.36rem] flex flex-col items-center">
                         <h2
                             class="font-ade text-[4.236rem] md:text-[6.854rem] text-on-surface leading-[0.85] tracking-tighter group-hover:scale-[1.062] group-focus-within:scale-[1.062] transition-transform duration-[618ms]">
-                            <span class="fade-out-the inline-block transition-opacity duration-300">THE</span> <br /><span class="text-primary">CODER.</span>
+                            <span class="fade-out-the inline-block transition-opacity duration-300">THE</span> <br /><span class="text-primary fade-out-main inline-block transition-opacity duration-500">CODER.</span>
                         </h2>
                         <p
                             class="mt-[2.618rem] font-body text-[1.125rem] leading-[1.618] max-w-[38.2rem] opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-[618ms] delay-[382ms]">
@@ -394,21 +495,10 @@
             </section>
         </main>
 
-        <footer class="relative w-full z-50 bg-[#0e0e11] border-t border-white/5 tonal-shift bg-surface-container-low">
-            <div class="flex flex-col md:flex-row justify-between items-center px-12 py-10 w-full">
-                <div
-                    class="font-['Space_Grotesk'] uppercase tracking-[0.1em] text-[10px] text-slate-500 opacity-80 hover:opacity-100">
-                    © 2024 THE SYNTHETIC POLYMATH. ALL RIGHTS RESERVED.
-                </div>
-                <div class="flex gap-8 mt-4 md:mt-0">
-                    <a class="font-['Space_Grotesk'] uppercase tracking-[0.1em] text-[10px] text-slate-500 hover:text-[#0055FF] transition-colors"
-                        href="#">Documentation</a>
-                    <a class="font-['Space_Grotesk'] uppercase tracking-[0.1em] text-[10px] text-slate-500 hover:text-[#0055FF] transition-colors"
-                        href="#">System Status</a>
-                    <a class="font-['Space_Grotesk'] uppercase tracking-[0.1em] text-[10px] text-slate-500 hover:text-[#0055FF] transition-colors"
-                        href="#">Source</a>
-                    <a class="font-['Space_Grotesk'] uppercase tracking-[0.1em] text-[10px] text-slate-500 hover:text-[#0055FF] transition-colors"
-                        href="#">Privacy</a>
+        <footer class="relative w-full z-50 bg-[#0e0e11] border-t border-white/5 bg-surface-container-low">
+            <div class="flex items-center justify-center px-12 py-8 w-full">
+                <div class="font-['Space_Grotesk'] uppercase tracking-[0.1em] text-[10px] text-slate-500 opacity-80">
+                    &copy; 2026 Vigneshwar J. All rights reserved.
                 </div>
             </div>
         </footer>
@@ -523,10 +613,29 @@
             // Engineer: Technical Blue
             initSilk('silk-container-engineer', "#3467ff", 0.3);
 
+            // Preload selection sound
+            const selectSound = new Audio('sounds/click/select.mp3');
+            selectSound.volume = 0.6; // Cinematic but clean volume
+
             // Sequence Transition Hook
             document.querySelectorAll('a[href="creative.html"], a[href="technical.html"]').forEach(btn => {
+                // Ensure we only trigger sounds for these specific internal routes
+                btn.addEventListener('mouseenter', () => {
+                    // Safety check to ensure we don't trigger sounds for mailto accidentally
+                    if (btn.href && btn.href.startsWith('mailto:')) return; 
+
+                    // Play auditory feedback on hover
+                    selectSound.currentTime = 0;
+                    selectSound.play().catch(() => { /* Ignore blocked autoplay errors */ });
+                });
+
                 btn.addEventListener('click', function (e) {
                     e.preventDefault(); // Prevent instant jump
+                    
+                    // Enforce sound plays during click sequence
+                    selectSound.currentTime = 0;
+                    selectSound.play().catch(() => { });
+
                     const targetUrl = this.getAttribute('href');
                     const clickedPane = this.closest('.pane');
                     const panes = document.querySelectorAll('.pane');
@@ -549,6 +658,60 @@
                 });
             });
         });
+    </script>
+    <script>
+        // --- Cinematic Loader Dismissal Engine ---
+        (function () {
+            const loader = document.getElementById('site-loader');
+            if (!loader) return;
+
+            const MIN_DISPLAY_MS = 1200; // Keep visible for at least this duration even on fast connections
+            const startTime = Date.now();
+
+            function dismissLoader() {
+                const elapsed = Date.now() - startTime;
+                const remaining = Math.max(0, MIN_DISPLAY_MS - elapsed);
+                setTimeout(() => {
+                    loader.classList.add('fade-out');
+                    // Fully remove from DOM after fade completes to free memory
+                    setTimeout(() => loader.remove(), 900);
+                }, remaining);
+            }
+
+            let pendingAssets = 0;
+            let resolved = false;
+
+            function assetResolved() {
+                pendingAssets--;
+                if (pendingAssets <= 0 && !resolved) {
+                    resolved = true;
+                    dismissLoader();
+                }
+            }
+
+            // Track all images currently in the DOM
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                if (img.complete && img.naturalWidth > 0) return; // already cached
+                pendingAssets++;
+                img.addEventListener('load', assetResolved, { once: true });
+                img.addEventListener('error', assetResolved, { once: true }); // don't block on broken
+            });
+
+            // Track the select.mp3 audio
+            pendingAssets++;
+            const audioProbe = new Audio('sounds/click/select.mp3');
+            audioProbe.addEventListener('canplaythrough', assetResolved, { once: true });
+            audioProbe.addEventListener('error', assetResolved, { once: true });
+
+            // Fallback: if nothing was pending, dismiss on window load
+            if (pendingAssets === 0) {
+                window.addEventListener('load', dismissLoader, { once: true });
+            }
+
+            // Hard-cap safety: never show loader more than 5s regardless
+            setTimeout(() => { if (!resolved) { resolved = true; dismissLoader(); } }, 5000);
+        })();
     </script>
 </body>
 
